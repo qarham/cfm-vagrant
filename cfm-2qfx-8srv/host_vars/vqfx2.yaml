@@ -1,0 +1,34 @@
+interfaces:
+    - name: xe-0/0/1
+      description: "connect l-srv1"
+      vlan_id: 1
+    - name: xe-0/0/2
+      description: "connect l-srv2"
+      vlan_id: 1
+    - name: xe-0/0/3
+      description: "connect l-srv3"
+      vlan_id: 1
+    - name: xe-0/0/4
+      description: "connect l-srv4"
+      vlan_id: 1
+    - name: xe-0/0/5
+      description: "connect l-srv5"
+      vlan_id: 1
+
+
+inet_interfaces:
+    - name: xe-0/0/0
+      ip: 10.0.0.2/30
+      description: "connect 2 vqfx1"
+    - name: irb
+      description: "vRouter Gateway for all srvs"
+      ip: 172.16.2.1/24
+    - name: lo0
+      description: "vqfx Loopback"
+      ip: 2.2.2.2/32   
+
+router_id: 2.2.2.2
+neighbor: 1.1.1.1
+route_distinguisher: "2222:1"
+vrf_target: "target:64500:2222"
+local_address: 2.2.2.2

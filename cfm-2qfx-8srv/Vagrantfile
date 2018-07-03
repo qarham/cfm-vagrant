@@ -1,0 +1,160 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+UUID = "fab1"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+    config.ssh.insert_key = false
+
+    (1..2).each do |id|
+        re_name  = ( "vqfx" + id.to_s ).to_sym
+        pfe_name = ( "vqfx" + id.to_s + "-pfe" ).to_sym
+        
+        ##############################
+        ## Packet Forwarding Engine ##
+        ##############################
+        config.vm.define pfe_name do |vqfxpfe|
+            vqfxpfe.ssh.insert_key = false
+            vqfxpfe.vm.box = 'juniper/vqfx10k-pfe'
+            vqfxpfe.vm.boot_timeout = 600
+
+            # DO NOT REMOVE / NO VMtools installed ttt
+            vqfxpfe.vm.synced_folder '.', 
+                '/vagrant', disabled: true
+
+            # Internal em1 port to RE
+            vqfxpfe.vm.network 'private_network', 
+                auto_config: false, 
+                nic_type: '82540EM', 
+                virtualbox__intnet: "#{UUID}_vqfx#{id}_internal"
+
+            # In case you have limited resources, you can limit the CPU used per vqfx-pfe VM, usually 50% is good
+            #vqfxpfe.vm.provider "virtualbox" do |v|
+            #   v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+            #end
+        end
+
+        ##########################
+        ## Routing Engine  #######
+        ##########################
+        config.vm.define re_name do |vqfx|
+            vqfx.vm.hostname = "vqfx#{id}"
+            vqfx.vm.box = 'juniper/vqfx10k-re'
+            vqfx.vm.boot_timeout = 600
+
+            # DO NOT REMOVE / NO VMtools installed
+            vqfx.vm.synced_folder '.', 
+                '/vagrant', disabled: true
+
+            # Internal em1 port to PFE
+            vqfx.vm.network 'private_network', 
+                auto_config: false, 
+                nic_type: '82540EM', 
+                virtualbox__intnet: "#{UUID}_vqfx#{id}_internal"
+            
+            # Unused em2 port we need to exclude 
+            vqfx.vm.network 'private_network', 
+                auto_config: false, nic_type: '82540EM', 
+                virtualbox__intnet: "#{UUID}_vqfx#{id}_reserved-bridge"
+
+            # Interconnect link between vqfx (xe-0/0/0)
+            vqfx.vm.network 'private_network', 
+                auto_config: false, 
+                nic_type: '82540EM', 
+                virtualbox__intnet: "#{UUID}_vqfx_interconnect"
+
+            # Dataplane ports (Yes, dataplane ports are mapped on the RE and not PFE for vQFX10k)
+            (1..8).each do |seg_id|
+               vqfx.vm.network 'private_network', 
+                auto_config: false, 
+                nic_type: '82540EM', 
+                virtualbox__intnet: "#{UUID}_vqfx#{id}_seg#{seg_id}"
+            end
+
+        end
+    
+    
+        #########################################################################################################
+        ## Servers Connected to vQFX1 Spine for OpenStack/Contrail Controller and Contrail-Command        #######
+        #########################################################################################################
+        $subnet_mgmt = "10.87.65"
+        $subnet_ctrl_data= "172.16.1"
+            (1..2).each do |id|
+            srv_name = ( "s-srv" + id.to_s ).to_sym
+                config.vm.define srv_name do |srv|
+                    srv.vm.box = "qarham/CentOS7.5-350GB"
+                    srv.vm.hostname = "srv#{id}"
+                    srv.vm.network "public_network",
+                    bridge: "br0",
+                    ip:"#{$subnet_mgmt}.#{id+70}",
+                    netmask:"255.255.255.128"
+                    srv.vm.network 'private_network',
+                    ip: "#{$subnet_ctrl_data}.#{id+76}",
+                    nic_type: '82540EM',
+                    virtualbox__intnet: "#{UUID}_vqfx1_seg#{id}"
+                    srv.ssh.insert_key = true
+                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
+                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+                    srv.vm.provision "shell", path: "scripts/ntp.sh"
+                    srv.vm.provision "file",
+                    source: "instances.yaml",
+                    destination: "/home/vagrant/instances.yaml"
+                    srv.vm.provision "shell",
+                    inline: "sudo ip route add 172.16.0.0/16 via 172.16.1.1"
+                config.vm.provider :virtualbox do |vb|
+                    vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                end
+                end
+            end
+
+        #########################################################################################################
+        ## Servers Connected to vQFX2 Leaf for Compute, CSN and BMS nodes                                #######
+        #########################################################################################################
+        $subnet_mgmt = "10.87.65"
+        $subnet_ctrl_data= "172.16.2"
+            (1..5).each do |id|
+            srv_name = ( "l-srv" + id.to_s ).to_sym
+                config.vm.define srv_name do |srv|
+                    srv.vm.box = "qarham/CentOS7.5-350GB"
+                    srv.vm.hostname = "srv#{id}"
+                    srv.vm.network "public_network",
+                    bridge: "br0",
+                    ip:"#{$subnet_mgmt}.#{id+70}",
+                    netmask:"255.255.255.128"
+                    srv.vm.network 'private_network',
+                    ip: "#{$subnet_ctrl_data}.#{id+78}",
+                    nic_type: '82540EM',
+                    virtualbox__intnet: "#{UUID}_vqfx2_seg#{id}"
+                    srv.ssh.insert_key = true
+                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
+                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+                    srv.vm.provision "shell", path: "scripts/ntp.sh"
+                    srv.vm.provision "file",
+                    source: "instances.yaml",
+                    destination: "/home/vagrant/instances.yaml"
+                    srv.vm.provision "shell",
+                    inline: "sudo ip route add 172.16.0.0/16 via 172.16.2.1"
+                config.vm.provider :virtualbox do |vb|
+                    vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                end
+                end
+            end
+
+    ##############################
+    ## Box provisioning        ###
+    ## exclude Windows host    ###
+    ##############################
+    if !Vagrant::Util::Platform.windows?
+        config.vm.provision "ansible" do |ansible|
+            ansible.groups = {
+                "vqfx10k" => ["vqfx1", "vqfx2" ],
+                "vqfx10k-pfe"  => ["vqfx1-pfe", "vqfx2-pfe"],
+                "all:children" => ["vqfx10k", "vqfx10k-pfe"]
+            }
+            ansible.playbook = "pb.conf.all.commit.yaml"
+        end
+    end
+end
