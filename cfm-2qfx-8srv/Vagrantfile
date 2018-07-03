@@ -89,10 +89,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.hostname = "srv#{s_id}"
                     srv.vm.network "public_network",
                       bridge: "br0",
-                      ip:"#{$subnet_mgmt}.#{s_id+70}",
+                      ip:"#{$subnet_mgmt}.#{s_id+86}",
                       netmask:"255.255.255.128"
                     srv.vm.network 'private_network',
-                      ip: "#{$subnet_ctrl_data}.#{s_id+76}",
+                      ip: "#{$subnet_ctrl_data}.#{s_id+100}",
                       nic_type: '82540EM',
                       virtualbox__intnet: "#{UUID}_vqfx1_seg#{s_id}"
                     srv.ssh.insert_key = true
@@ -124,10 +124,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.hostname = "srv#{l_id}"
                     srv.vm.network "public_network",
                     bridge: "br0",
-                    ip:"#{$subnet_mgmt}.#{l_id+70}",
+                    ip:"#{$subnet_mgmt}.#{l_id+88}",
                     netmask:"255.255.255.128"
                     srv.vm.network 'private_network',
-                    ip: "#{$subnet_ctrl_data}.#{l_id+78}",
+                    ip: "#{$subnet_ctrl_data}.#{l_id+100}",
                     nic_type: '82540EM',
                     virtualbox__intnet: "#{UUID}_vqfx2_seg#{l_id}"
                     srv.ssh.insert_key = true
