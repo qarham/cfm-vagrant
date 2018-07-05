@@ -86,7 +86,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
               srv_name = ( "s-srv" + s_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
                     srv.vm.box = "qarham/CentOS7.5-350GB"
-                    srv.vm.hostname = "srv#{s_id}"
+                    srv.vm.hostname = "s-srv#{s_id}"
                     srv.vm.network "public_network",
                       bridge: "br0",
                       ip:"#{$subnet_s_mgmt}.#{s_id+86}",
@@ -121,7 +121,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
               srv_name = ( "l-srv" + l_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
                     srv.vm.box = "qarham/CentOS7.5-350GB"
-                    srv.vm.hostname = "srv#{l_id}"
+                    srv.vm.hostname = "l-srv#{l_id}"
                     srv.vm.network "public_network",
                       bridge: "br0",
                       ip:"#{$subnet_l_mgmt}.#{l_id+88}",
