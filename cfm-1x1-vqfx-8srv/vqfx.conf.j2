@@ -84,19 +84,36 @@ interfaces {
 }
 routing-options {
     router-id {{ router_id }};
-    autonomous-system 64500;
+    autonomous-system {{ autonomous_system }};
 }
-protocols {
-     ospf {
-        area 0.0.0.0 {
-            interface lo0.0 {
-                passive;
+protocols {                             
+    bgp {
+        group CLOS {
+            type external;
+            family inet {
+                unicast;
             }
-            interface xe-0/0/0.0;
+            export export-bgp;
+            peer-as {{ peer_as }};
+            neighbor {{ neighbor }};
         }
     }
     lldp {
         interface all;
+    }
+}
+policy-options {
+    policy-statement export-bgp {
+        term 1 {
+            from {
+                protocol [ direct local ];
+                interface [ lo0.0 irb.0 ];
+            }
+            then accept;
+        }
+        term 2 {
+            then reject;
+        }
     }
 }
 vlans {

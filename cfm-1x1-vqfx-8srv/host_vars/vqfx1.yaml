@@ -9,16 +9,16 @@ interfaces:
 inet_interfaces:
     - name: xe-0/0/0
       ip: 10.0.0.1/30
-      description: "connect 2 vqfx2"
+      description: "connect 2 vqfx2 Leaf"
     - name: irb
       description: "vRouter Gateway for all srvs"
       ip: 172.16.1.1/24
     - name: lo0
       description: "vqfx Loopback"
-      ip: 1.1.1.1/32   
+      ip: 2.2.2.1/32   
 
-router_id: 1.1.1.1
-neighbor: 2.2.2.2
-route_distinguisher: "1111:1"
-vrf_target: "target:64500:1111"
-local_address: 1.1.1.1
+router_id: 2.2.2.1
+autonomous_system: 64601
+peer_as: 64501
+neighbor: 10.0.0.2
+local_address: 2.2.2.1

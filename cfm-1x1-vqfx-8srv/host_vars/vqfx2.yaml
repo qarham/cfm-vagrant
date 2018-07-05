@@ -28,7 +28,7 @@ inet_interfaces:
       ip: 2.2.2.2/32   
 
 router_id: 2.2.2.2
-neighbor: 1.1.1.1
-route_distinguisher: "2222:1"
-vrf_target: "target:64500:2222"
+autonomous_system: 64501
+peer_as: 64601
+neighbor: 10.0.0.1
 local_address: 2.2.2.2

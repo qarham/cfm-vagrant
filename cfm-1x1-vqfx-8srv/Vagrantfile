@@ -80,8 +80,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ###############################################################################################################################
         ## Servers Connected to vQFX1 Spine for OpenStack/Contrail Controller and Contrail-Command   "vqfx lo0: 1.1.1.1"        #######
         ###############################################################################################################################
-        $subnet_mgmt = "10.87.65"
-        $subnet_ctrl_data= "172.16.1"
+        $subnet_s_mgmt = "10.87.65"
+        $subnet_s_ctrl_data= "172.16.1"
             (1..2).each do |s_id|
               srv_name = ( "s-srv" + s_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
@@ -89,10 +89,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.hostname = "srv#{s_id}"
                     srv.vm.network "public_network",
                       bridge: "br0",
-                      ip:"#{$subnet_mgmt}.#{s_id+86}",
+                      ip:"#{$subnet_s_mgmt}.#{s_id+86}",
                       netmask:"255.255.255.128"
                     srv.vm.network 'private_network',
-                      ip: "#{$subnet_ctrl_data}.#{s_id+100}",
+                      ip: "#{$subnet_s_ctrl_data}.#{s_id+100}",
                       nic_type: '82540EM',
                       virtualbox__intnet: "#{UUID}_vqfx1_seg#{s_id}"
                     srv.ssh.insert_key = true
@@ -111,25 +111,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 end
             end
         end
-
+        
         #########################################################################################################
         ## Servers Connected to vQFX2 Leaf for Compute, CSN and BMS nodes "vqfx lo0: 2.2.2.2"              #######
         #########################################################################################################
-        $subnet_mgmt = "10.87.65"
-        $subnet_ctrl_data= "172.16.2"
+        $subnet_l_mgmt = "10.87.65"
+        $subnet_l_ctrl_data= "172.16.2"
             (1..5).each do |l_id|
-            srv_name = ( "l-srv" + l_id.to_s ).to_sym
+              srv_name = ( "l-srv" + l_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
                     srv.vm.box = "qarham/CentOS7.5-350GB"
                     srv.vm.hostname = "srv#{l_id}"
                     srv.vm.network "public_network",
-                    bridge: "br0",
-                    ip:"#{$subnet_mgmt}.#{l_id+88}",
-                    netmask:"255.255.255.128"
+                      bridge: "br0",
+                      ip:"#{$subnet_l_mgmt}.#{l_id+88}",
+                      netmask:"255.255.255.128"
                     srv.vm.network 'private_network',
-                    ip: "#{$subnet_ctrl_data}.#{l_id+100}",
-                    nic_type: '82540EM',
-                    virtualbox__intnet: "#{UUID}_vqfx2_seg#{l_id}"
+                      ip: "#{$subnet_l_ctrl_data}.#{l_id+100}",
+                      nic_type: '82540EM',
+                      virtualbox__intnet: "#{UUID}_vqfx2_seg#{l_id}"
                     srv.ssh.insert_key = true
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
                     srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
@@ -138,9 +138,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #                    source: "instances.yaml",
 #                    destination: "/home/vagrant/instances.yaml"
                     srv.vm.provision "shell",
-                    inline: "sudo ip route add 172.16.0.0/16 via 172.16.2.1"
+                      inline: "sudo ip route add 172.16.0.0/16 via 172.16.2.1"
                     srv.vm.provision "shell",
-                    inline: "sudo ip route add 2.2.2.2/32 via 172.16.2.1"
+                      inline: "sudo ip route add 2.2.2.2/32 via 172.16.2.1"
                     config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
                 end
