@@ -105,7 +105,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.provision "shell",
                       inline: "sudo ip route add 172.16.0.0/16 via 172.16.1.1"
                     srv.vm.provision "shell",
-                      inline: "sudo ip route add 1.1.1.1/32 via 172.16.1.1"  
+                      inline: "sudo ip route add 2.2.2.0/24 via 172.16.1.1"  
                 config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
                 end
@@ -140,7 +140,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.provision "shell",
                       inline: "sudo ip route add 172.16.0.0/16 via 172.16.2.1"
                     srv.vm.provision "shell",
-                      inline: "sudo ip route add 2.2.2.2/32 via 172.16.2.1"
+                      inline: "sudo ip route add 2.2.2.0/24 via 172.16.2.1"
                     config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
                 end
