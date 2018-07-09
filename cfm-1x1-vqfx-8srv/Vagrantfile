@@ -98,14 +98,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.ssh.insert_key = true
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
                     srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+                    srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
 #                   srv.vm.provision "shell", path: "scripts/ntp.sh"
 #                    srv.vm.provision "file",
 #                      source: "instances.yaml",
 #                      destination: "/home/vagrant/instances.yaml"
-                    srv.vm.provision "shell",
-                      inline: "sudo ip route add 172.16.0.0/16 via 172.16.1.1"
-                    srv.vm.provision "shell",
-                      inline: "sudo ip route add 2.2.2.0/24 via 172.16.1.1"  
+#                    srv.vm.provision "shell",
+#                      inline: "sudo ip route add 172.16.0.0/16 via 172.16.1.1"
+#                   srv.vm.provision "shell",
+#                      inline: "sudo ip route add 2.2.2.0/24 via 172.16.1.1"  
                 config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
                 end
@@ -133,14 +134,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.ssh.insert_key = true
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
                     srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+                    srv.vm.provision "shell", path: "scripts/static-routes-l-server.sh"
 #                    srv.vm.provision "shell", path: "scripts/ntp.sh"
 #                    srv.vm.provision "file",
 #                    source: "instances.yaml",
 #                    destination: "/home/vagrant/instances.yaml"
-                    srv.vm.provision "shell",
-                      inline: "sudo ip route add 172.16.0.0/16 via 172.16.2.1"
-                    srv.vm.provision "shell",
-                      inline: "sudo ip route add 2.2.2.0/24 via 172.16.2.1"
+#                    srv.vm.provision "shell",
+#                      inline: "sudo ip route add 172.16.0.0/16 via 172.16.2.1"
+#                    srv.vm.provision "shell",
+#                      inline: "sudo ip route add 2.2.2.0/24 via 172.16.2.1"
                     config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
                 end
