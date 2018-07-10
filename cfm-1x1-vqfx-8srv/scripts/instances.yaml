@@ -9,7 +9,7 @@ provider_config:
     domainsuffix: local
 instances:
   s-srv2:
-    ip: 10.87.65.88
+    ip: 192.168.10.102
     provider: bms
     roles:
       config:
@@ -23,14 +23,21 @@ instances:
       openstack_storage:
       openstack_monitoring:
   l-srv2:
-    ip: 10.87.65.90
+    ip: 192.168.10.104
     provider: bms
     roles:
       vrouter:
         VROUTER_GATEWAY: 172.16.2.1
       openstack_compute:
   l-srv1:
-    ip: 10.87.65.89
+    ip: 192.168.10.103
+    provider: bms
+    roles:
+      vrouter:
+        VROUTER_GATEWAY: 172.16.2.1
+      openstack_compute:
+  l-srv3:
+    ip: 192.168.10.105
     provider: bms
     roles:
       vrouter:
@@ -43,12 +50,17 @@ contrail_configuration:
   VROUTER_GATEWAY: 172.16.2.1
   ENCAP_PRIORITY: VXLAN,MPLSoUDP,MPLSoGRE
   AUTH_MODE: keystone
-  KEYSTONE_AUTH_HOST: 10.87.65.88
+  KEYSTONE_AUTH_HOST: 192.168.10.102
   KEYSTONE_AUTH_URL_VERSION: /v3
-  CONTROLLER_NODES: 10.87.65.88
+  CONTROLLER_NODES: 192.168.10.102
   CONTROL_NODES: 172.16.1.102
   TSN_NODES: 172.16.2.103
 kolla_config:
+  customize:
+    nova.conf: |
+      [libvirt]
+      virt_type=qemu
+      cpu_mode=none
   kolla_globals:
     openstack_release: ocata
     enable_haproxy: no
