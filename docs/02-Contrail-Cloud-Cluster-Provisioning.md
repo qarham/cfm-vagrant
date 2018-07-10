@@ -6,41 +6,41 @@ Username/Password:   admin/contrail123
 
 ## 1. Add Servers
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Add-Server-01.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Server-01.png)
 
 ## 2. Add All Servers
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Add-Servers-All.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Servers-All.png)
 
 ## 3. Create Cluster
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Create-Cluster.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Create-Cluster.png)
 
 ## 4. Add Contrail Control Node
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Add-Contrail-Control-Node.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Contrail-Control-Node.png)
 
 ## 5. Add OpenStack Control Node (Orchestration)
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Add-OpenStack-Control-Node.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-OpenStack-Control-Node.png)
 
 ## 6. Add Compute Node
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Add-Compute-Node.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Compute-Node.png)
 
 
 ## 7. Add Contrail Service Node (Old TSN)
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Add-Contrail-Service-Node.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Contrail-Service-Node.png)
 
 
 ## 8. Cluster Summary
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Cluster-Summary.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Cluster-Summary.png)
 
 ## 9. Cluster Summary
 
-![Clsuter Provisioning](/cfm-1vqfx-5srv/docs/images/Cluster-Provisioning-Started.png)
+![Clsuter Provisioning](/cfm-vagrant/docs/images/Cluster-Provisioning-Started.png)
 
 
 ## 10. Check instances.yml
@@ -140,7 +140,7 @@ This script will perform following actions:
 * Instantiate one VM in each VN (VN01 & VN02)
 
 ```bash
-wget https://raw.githubusercontent.com/qarham/tf-os-k8s-vagrant/master/cfm-1vqfx-5srv/scripts/basic-sanity-test.sh
+wget https://raw.githubusercontent.com/qarham/tf-os-k8s-vagrant/master/cfm-vagrant/scripts/basic-sanity-test.sh
 
 chmod +x basic-sanity-test.sh
 

@@ -1,7 +1,7 @@
 # ![alt text](/images/cfm-top.png) Contrail Fabric Manager Testbed setup (1vQFX and 5 VMs) for CFM Testing
 
 
-![Web Console](/cfm-1vqfx-5srv/docs/images/cfm_vqfx_basic-config.png)
+![Web Console](/cfm-vagrant/docs/images/cfm_vqfx_basic-config.png)
 
 Changes on vQFX side
 
@@ -31,11 +31,11 @@ set groups __contrail__ switch-options vtep-source-interface lo0.0
 
 ##### 1. Adding No-LCM BMS to Servers List
 
-![Web Console](/cfm-1vqfx-5srv/docs/images/cfm-no-lcm-bms-server-add.png)
+![Web Console](/cfm-vagrant/docs/images/cfm-no-lcm-bms-server-add.png)
 
 ##### 2. Create Exiting Baremetal Server Instance 
 
-![Web Console](/cfm-1vqfx-5srv/docs/images/cfm-no-lcam-bms-instance-create.png)
+![Web Console](/cfm-vagrant/docs/images/cfm-no-lcam-bms-instance-create.png)
 
 Changes on vQFX side
 
@@ -140,7 +140,7 @@ The main code of this repository is taken from [Juniper/vqfx10k-vagrant](https:/
 
 ```bash
 host> git clone https://github.com/qarham/tf-os-k8s-vagrant.git
-host> cd tf-os-k8s-vagrant/cfm-1vqfx-5srv
+host> cd tf-os-k8s-vagrant/cfm-vagrant
 host> vagrant status
 host> vagrantup
 ```
