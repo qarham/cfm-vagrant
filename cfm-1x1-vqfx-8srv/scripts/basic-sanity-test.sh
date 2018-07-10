@@ -49,22 +49,22 @@ openstack subnet create --subnet-range 20.1.1.0/24 --network VN-02 VN02-VN-subne
 openstack server create --flavor m1.tiny --image 'cirros2' \
     --nic net-id=VN-01 \
     --availability-zone nova:l-srv1 \
-SRV1VMVN01-01
+srv1vmvn01-01
 
 openstack server create --flavor m1.tiny --image 'cirros2' \
     --nic net-id=VN-02 \
     --availability-zone nova:l-srv1 \
-SRV1VMVN02-01
+srv1vmvn02-01
 
 openstack server create --flavor m1.tiny --image 'cirros2' \
     --nic net-id=VN-01 \
     --availability-zone nova:l-srv2 \
-SRV1VMVN01-02
+srv2vmvn01-02
 
 openstack server create --flavor m1.tiny --image 'cirros2' \
     --nic net-id=VN-02 \
         --availability-zone nova:l-srv2 \
-SRV1VMVN02-02
+srv2vmvn02-02
 
 sleep 30
 
