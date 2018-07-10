@@ -6,7 +6,7 @@ AT this stage our Contrail Fabric Manager setup is up and ready for some overlay
 
 In our topology BMS is also a VM and let's 1st add "srv4" as a Non-LCM VM in CFM and create a BMS instance.
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Add-BMS-server.png)
+![Fabric Creation](images/Fabric-Add-BMS-server.png)
 
 ```bash
 # Get MAC address of srv4 eth2 interface
@@ -21,12 +21,12 @@ ip link show eth2
 
 Update default security group for ingress rule and allow all traffic.
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-BMS-SG-Update.png)
+![Fabric Creation](images/Fabric-BMS-SG-Update.png)
 
 
 ## 4. Create BMS instance
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-BMS-Instance-01.png)
+![Fabric Creation](images/Fabric-BMS-Instance-01.png)
 
 On CSN node monitor DHCP request from BMS instances and check right IP is assigned to BMS instance. In our case 10.1.1.4 is assigned to BMS instance "bms1"
 

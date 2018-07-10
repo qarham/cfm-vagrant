@@ -6,41 +6,41 @@ Username/Password:   admin/contrail123
 
 ## 1. Add Servers
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Server-01.png)
+![Clsuter Provisioning](images/Add-Server-01.png)
 
 ## 2. Add All Servers
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Servers-All.png)
+![Clsuter Provisioning](images/Add-Servers-All.png)
 
 ## 3. Create Cluster
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Create-Cluster.png)
+![Clsuter Provisioning](images/Create-Cluster.png)
 
 ## 4. Add Contrail Control Node
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Contrail-Control-Node.png)
+![Clsuter Provisioning](images/Add-Contrail-Control-Node.png)
 
 ## 5. Add OpenStack Control Node (Orchestration)
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-OpenStack-Control-Node.png)
+![Clsuter Provisioning](images/Add-OpenStack-Control-Node.png)
 
 ## 6. Add Compute Node
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Compute-Node.png)
+![Clsuter Provisioning](images/Add-Compute-Node.png)
 
 
 ## 7. Add Contrail Service Node (Old TSN)
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Add-Contrail-Service-Node.png)
+![Clsuter Provisioning](images/Add-Contrail-Service-Node.png)
 
 
 ## 8. Cluster Summary
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Cluster-Summary.png)
+![Clsuter Provisioning](images/Cluster-Summary.png)
 
 ## 9. Cluster Summary
 
-![Clsuter Provisioning](/cfm-vagrant/docs/images/Cluster-Provisioning-Started.png)
+![Clsuter Provisioning](images/Cluster-Provisioning-Started.png)
 
 
 ## 10. Check instances.yml

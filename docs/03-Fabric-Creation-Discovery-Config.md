@@ -5,18 +5,18 @@
 
 In our case vQFX is already created via Vagrant so please use "Existing "
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Creation-01.png)
+![Fabric Creation](images/Fabric-Creation-01.png)
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Creation-02.png)
+![Fabric Creation](images/Fabric-Creation-02.png)
 
 
 ## 2. Fabric Discovery
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Discovery-Start-01.png)
+![Fabric Creation](images/Fabric-Discovery-Start-01.png)
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Discovery-Start-02.png)
+![Fabric Creation](images/Fabric-Discovery-Start-02.png)
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Discovery-Complete.png)
+![Fabric Creation](images/Fabric-Discovery-Complete.png)
 
 Check following logs during discovery
 
@@ -28,11 +28,11 @@ tail -200f /var/log/contrail/contrail-fabric-ansible.log
 
 ## 3. Fabric Onboarding
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Onboarding-Start.png)
+![Fabric Creation](images/Fabric-Onboarding-Start.png)
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Onboarding-Complete-01.png)
+![Fabric Creation](images/Fabric-Onboarding-Complete-01.png)
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-Onboarding-Complete-02.png)
+![Fabric Creation](images/Fabric-Onboarding-Complete-02.png)
 
 
 
@@ -47,7 +47,7 @@ tail -200f /var/log/contrail/contrail-fabric-ansible.log
 
 ## 4. vQFX Role and Basic Config
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-vQFX-Role-Config.png)
+![Fabric Creation](images/Fabric-vQFX-Role-Config.png)
 
 ```bash
 vagrant@vqfx> show configuration groups | display set
@@ -86,7 +86,7 @@ vagrant@vqfx>
 
 ## 5. vQFX system Config NTP & TimeZone
 
-![Fabric Creation](/cfm-vagrant/docs/images/Fabric-vQFX-Basic-Config.png)
+![Fabric Creation](images/Fabric-vQFX-Basic-Config.png)
 
 ```bash
 set system time-zone US/Pacific
