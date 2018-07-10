@@ -1,4 +1,4 @@
-# ![alt text](images/cfm-top.png) Installation of Contrail Command
+# ![alt text](images/CC-Logo.png) Installation of Contrail Command
 
 
 The 1st step after bringing up the topology is the Installation of Contrail Command and for that Contrail Command will be installed on s-srv1. Please follow following steps for installtion and accessing the GUI after the installation.
