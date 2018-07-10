@@ -84,7 +84,7 @@ interfaces {
 }
 routing-options {
     router-id {{ router_id }};
-    autonomous-system {{ autonomous_system }};
+    autonomous-system {{ overlay_asn }};
 }
 protocols {                             
     bgp {
@@ -95,6 +95,7 @@ protocols {
             }
             export export-bgp;
             peer-as {{ peer_as }};
+            local-as {{ local-as }};
             neighbor {{ neighbor }};
         }
     }

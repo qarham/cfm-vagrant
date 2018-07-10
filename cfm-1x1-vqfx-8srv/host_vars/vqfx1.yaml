@@ -18,7 +18,8 @@ inet_interfaces:
       ip: 2.2.2.1/32   
 
 router_id: 2.2.2.1
-autonomous_system: 64601
+overlay_asn: 64512
+local_as: 64601
 peer_as: 64501
 neighbor: 10.0.0.2
 local_address: 2.2.2.1

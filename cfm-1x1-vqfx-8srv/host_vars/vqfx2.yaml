@@ -8,13 +8,6 @@ interfaces:
     - name: xe-0/0/3
       description: "connect l-srv3"
       vlan_id: 1
-    - name: xe-0/0/4
-      description: "connect l-srv4"
-      vlan_id: 1
-    - name: xe-0/0/5
-      description: "connect l-srv5"
-      vlan_id: 1
-
 
 inet_interfaces:
     - name: xe-0/0/0
@@ -28,7 +21,8 @@ inet_interfaces:
       ip: 2.2.2.2/32   
 
 router_id: 2.2.2.2
-autonomous_system: 64501
+overlay_asn: 64512
+local_as: 64501
 peer_as: 64601
 neighbor: 10.0.0.1
 local_address: 2.2.2.2
