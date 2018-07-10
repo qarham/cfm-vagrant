@@ -135,7 +135,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       virtualbox__intnet: "#{UUID}_vqfx2_seg#{l_id}"
                     srv.ssh.insert_key = true
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
-                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+#                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-l-server.sh"
                     config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
