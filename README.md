@@ -158,4 +158,5 @@ Now enable FoxyProxy add-on by selecting the profile created earlier and open Co
 ### References
 
 * <https://github.com/Juniper/contrail-ansible-deployer/wiki>
+* https://github.com/Juniper/contrail-command-deployer/wiki/Using-Ansible-to-launch-the-Contrail-Command-Containers
 * <https://github.com/Juniper/vqfx10k-vagrant>

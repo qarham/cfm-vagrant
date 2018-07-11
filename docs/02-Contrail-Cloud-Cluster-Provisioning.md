@@ -155,7 +155,7 @@ This script will perform following actions:
 * Download and Add cirros images
 * Create VM flavors
 * Create TWO VNs VN01: 10.1.1.0/24 & VN02: 20.1.1.0/24
-* Instantiate one VM in each VN (VN01 & VN02)
+* Instantiate two VMs in each VN (VN01 & VN02)
 
 ```bash
 wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-7srv/scripts/basic-sanity-test.sh
@@ -171,6 +171,7 @@ chmod +x basic-sanity-test.sh
 In case provisioning fail for Contrail install and you would like to run ansible provisioning manually you can use following command
 
 ```bash
+cd /usr/share/contrail/contrail-ansible-deployer
 
 ansible-playbook -i inventory/ -e orchestrator=openstack -e config_file=/var/tmp/contrail_cluster/<Cluseter-UUID>/instances.yml playbooks/install_contrail.yml
  ```
@@ -189,4 +190,5 @@ cd /usr/share/contrail/contrail-kolla-ansible
 ### References
 
 * <https://github.com/Juniper/contrail-ansible-deployer/wiki>
+* https://github.com/Juniper/contrail-command-deployer/wiki/Using-Ansible-to-launch-the-Contrail-Command-Containers
 * <https://github.com/Juniper/vqfx10k-vagrant>
