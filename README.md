@@ -1,4 +1,4 @@
-# Contrail Fabric Manager Vagrant Setup
+# ![alt text](docs/images/cfm-logo.png) Contrail Fabric Manager Vagrant Setup
 
 This repo is created for quick CFM poc/demo setup using Vagrant on a single Host "BMS" Bare Matel Server. If you are interested in setting up basic 1x1 Spine & leaf Fabric with couple of VM nodes for CFM use-cases demo/poc this repo will guide you in setting up topology and provide setp by step instructions for topology creation, installation of SW and E2E testing different use cases.
 
