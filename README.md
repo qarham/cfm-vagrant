@@ -113,15 +113,15 @@ ping 172.16.2.101 - 103
 
 Now after brining setup up and basic validation it's time to start installing Contrail CFM SW and basic use-cases testing. All validated use-cases are documented under folder "docs" and use following link for step to setp installations and validation.
 
+## Use-cases Tested on this setup
 
+* ### [UC-01-Contrail_Command_Installtion](docs/01-Install-Contrail-Command.md)
 
-### [UC-01-Contrail_Command_Installtion](docs/01-Install-Contrail-Command.md)
+* ### [UC-02-Contrail_Cloud_Cluster_Provisioning](docs/02-Contrail-Cloud-Cluster-Provisioning.md)
 
-### [UC-02-Contrail_Cloud_Cluster_Provisioning](docs/02-Contrail-Cloud-Cluster-Provisioning.md)
+* ### [UC-03-Fabric_Creation_Discovery_Onboarding](docs/03-Fabric-Creation-Discovery-Config.md)
 
-### [UC-03-Fabric_Creation_Discovery_Onboarding](docs/03-Fabric-Creation-Discovery-Config.md)
-
-### [UC-04-Intra_VN_BMS_VM](docs/04-BMS-VM-Intra-VN.md)
+* ### [UC-04-Intra_VN_BMS_VM](docs/04-BMS-VM-Intra-VN.md)
 
 
 ## How to use FoxyProxy for GUI access
