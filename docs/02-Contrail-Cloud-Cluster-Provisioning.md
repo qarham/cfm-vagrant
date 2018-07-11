@@ -168,11 +168,15 @@ chmod +x basic-sanity-test.sh
 
 ## Other Tips
 
-In case provisioning fail for Contrail install and you would like to run ansible provisioning manually you can use following command
+In case provisioning fail for OpenSTack/Contrail install and you would like to run ansible provisioning manually you can use following commands.
 
 ```bash
 cd /usr/share/contrail/contrail-ansible-deployer
 
+# For manual OpenStack Installation use following command
+ansible-playbook -i inventory/ -e orchestrator=openstack -e config_file=/var/tmp/contrail_cluster/<Cluseter-UUID>/instances.yml playbooks/install_openstack.yml 
+
+# For manual Contrail Installation use following command
 ansible-playbook -i inventory/ -e orchestrator=openstack -e config_file=/var/tmp/contrail_cluster/<Cluseter-UUID>/instances.yml playbooks/install_contrail.yml
  ```
 

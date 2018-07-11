@@ -54,7 +54,12 @@ Once Fabric Configuration is completed you can check new BGP Routers under Clust
 
 ![Fabric Creation](images/Fabric-Configure-02.png)
 
-Along with NTP server IP and TimeZone configuration addition to the each vQFX box following configs are also added. 
+Along with NTP server IP and TimeZone configuration addition to the each vQFX box following configs are also added.
+
+```bash
+set system time-zone US/Pacific
+set system ntp server 172.21.200.60
+ ```
 
 ***vQFX1 Config Changes***
 ```bash
@@ -144,35 +149,37 @@ tail -200f /var/log/contrail/contrail-fabric-ansible-playbooks.log
 tail -200f /var/log/contrail/contrail-fabric-ansible.log
  ```
 
-## 5. vQFX system Config NTP & TimeZone
+## 5. Fabric vQFX Role Assignment
 
-![Fabric Creation](images/Fabric-vQFX-Basic-Config.png)
+![Fabric Creation](images/Fabric-vqfx1-spine.png)
 
 ```bash
-set system time-zone US/Pacific
-set system ntp server 172.21.200.60
+set groups __contrail__ protocols bgp group _contrail_asn-64512 export _contrail_ibgp_export_policy
+
+set groups __contrail__ policy-options policy-statement _contrail_ibgp_export_policy term inet-vpn from family inet-vpn
+set groups __contrail__ policy-options policy-statement _contrail_ibgp_export_policy term inet-vpn then next-hop self
+set groups __contrail__ policy-options policy-statement _contrail_ibgp_export_policy term inet6-vpn from family inet6-vpn
+set groups __contrail__ policy-options policy-statement _contrail_ibgp_export_policy term inet6-vpn then next-hop self
+
  ```
+
+![Fabric Creation](images/Fabric-vqfx2-leaf.png)
+
+Note: No config change on vQFX1 (leaf)
+
 
 ## 6. Verify BGP Control Plane
 
-Now let's verify after configuring vQFX in leaf role with basic config BGP session is up with Contrail Controller
+Now let's verify after configuring vQFX in spine & leaf role with basic config BGP session is up with Contrail Controller using following commands.
 
 ```bash
 show bgp summary
-Groups: 1 Peers: 1 Down peers: 0
-Table          Tot Paths  Act Paths Suppressed    History Damp State    Pending
-bgp.rtarget.0
-                       7          7          0          0          0          0
-bgp.evpn.0
-                       0          0          0          0          0          0
-Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped...
-172.16.1.101          64512         27         28       0       0       11:35 Establ
-  bgp.rtarget.0: 7/7/7/0
-  bgp.evpn.0: 0/0/0/0
 
+show route receive-protocol bgp 172.16.1.102
  ```
 
 ### References
 
 * <https://github.com/Juniper/contrail-ansible-deployer/wiki>
+* https://github.com/Juniper/contrail-command-deployer/wiki/Using-Ansible-to-launch-the-Contrail-Command-Containers
 * <https://github.com/Juniper/vqfx10k-vagrant>

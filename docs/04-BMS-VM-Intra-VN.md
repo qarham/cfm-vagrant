@@ -1,10 +1,10 @@
 # BMS to VM Intra VN 
 
-AT this stage our Contrail Fabric Manager setup is up and ready for some overlay/underlay use-cases testing. Let's test BMS to VM intra Virtual Network connectivity, please follow below instructions.
+At this stage our Contrail Fabric Manager setup is up and ready for some overlay/underlay use-cases testing. Let's test BMS to VM intra Virtual Network connectivity, please follow below instructions.
 
 ## 1. Add Non-LCM BMS node
 
-In our topology BMS is also a VM and let's 1st add "srv4" as a Non-LCM VM in CFM and create a BMS instance.
+In our topology BMS is also a VM and two BMS Non-LCM servers "l-srv4 & l-srv5" are already added during "Server Addition" step of Infrastructure creation.
 
 ![Fabric Creation](images/Fabric-Add-BMS-server.png)
 
@@ -13,7 +13,7 @@ In our topology BMS is also a VM and let's 1st add "srv4" as a Non-LCM VM in CFM
 
 ip link show eth2
 4: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
-    link/ether 08:00:27:83:33:ad brd ff:ff:ff:ff:ff:ff
+    link/ether 08:00:27:8a:7d:b1 brd ff:ff:ff:ff:ff:ff
 
 ```
 
@@ -28,7 +28,11 @@ Update default security group for ingress rule and allow all traffic.
 
 ![Fabric Creation](images/Fabric-BMS-Instance-01.png)
 
-On CSN node monitor DHCP request from BMS instances and check right IP is assigned to BMS instance. In our case 10.1.1.4 is assigned to BMS instance "bms1"
+```bash
+
+ ```
+
+On CSN node "l-srv3" monitor DHCP request from BMS instances and check right IP is assigned to BMS instance. In our case 10.1.1.5 is assigned to BMS instance "bms1"
 
 ```bash
 tcpdump -nei eth2 port 4789
@@ -58,6 +62,12 @@ listening on eth2, link-type EN10MB (Ethernet), capture size 262144 bytes
 08:00:27:87:cc:9b > 08:00:27:83:33:ad, ethertype IPv4 (0x0800), length 322: 10.1.1.2.bootps > 10.1.1.4.bootpc: BOOTP/DHCP, Reply, length 280
 ^C
 
+ ```
+
+Note: In case tcpdump is not installed please install using following command.
+
+```bash
+yum install -y tcpdump
  ```
 
 ## 5. Configuration Pushed to vQFX

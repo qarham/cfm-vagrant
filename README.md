@@ -1,6 +1,6 @@
 # Contrail Fabric Manager Vagrant Setup
 
-This repo is created for quick CFM poc/demo setup using Vagrant on a single Host "BMS" Bare Matel Server. If you are interested in setting up basic 1x1 Spine & leaf Fabric with couple of nodes for CFM use-cases demo/poc this repo will guide you in setting up topology and provide setp by step instructions for topology creation, installation of SW and E2E testing different use cases.
+This repo is created for quick CFM poc/demo setup using Vagrant on a single Host "BMS" Bare Matel Server. If you are interested in setting up basic 1x1 Spine & leaf Fabric with couple of VM nodes for CFM use-cases demo/poc this repo will guide you in setting up topology and provide setp by step instructions for topology creation, installation of SW and E2E testing different use cases.
 
 ***High Level Topology Diagram***
  (1x1 vQFX Spine & Leaf with 7 Nodes)
@@ -9,6 +9,17 @@ This repo is created for quick CFM poc/demo setup using Vagrant on a single Host
 
 ***Detail Topology Diagram***
 ![CFM Topology](cfm-1x1-vqfx-7srv/images/cfm-1x1vQFX-Full-Top.png)
+
+The main code of this repository is taken from [Juniper/vqfx10k-vagrant](https://github.com/Juniper/vqfx10k-vagrant) to create a Testbed for CFM testing. Using this repo you can create a topology captured in the above diagram for basic CFM use-cases testing.
+
+* 2 vQFX 10K
+* 7 VMs CentOS 7.5 
+  * 1 Contrail-Command
+  * 1 OpenStack/Contrail Controller
+  * 1 CSN "Contrail Service Node"
+  * 2 Compute nodes
+  * 2 BMS (Non-LCM)
+
 Frist step is prepartion of host machine and the host can be running an Ubuntu or CentOS OS, please follow "Host Server Vagrant Setup" section for detail instructions.
 
 ## Host Server Vagrant Setup (prerequisite)
