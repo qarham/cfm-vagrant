@@ -94,9 +94,12 @@ protocols {
                 unicast;
             }
             export export-bgp;
-            peer-as {{ peer_as }};
             local-as {{ local_as }};
-            neighbor {{ neighbor }};
+{% for peer in peers %}
+            neighbor {{ peer.neighbor }} {
+                peer-as {{ peer.peer_as }};
+            }
+{% endfor %}
         }
     }
     lldp {

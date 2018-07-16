@@ -9,7 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.ssh.insert_key = false
 
-    (1..2).each do |id|
+    (1..3).each do |id|
         re_name  = ( "vqfx" + id.to_s ).to_sym
         pfe_name = ( "vqfx" + id.to_s + "-pfe" ).to_sym
 
@@ -67,7 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                 virtualbox__intnet: "#{UUID}_vqfx_interconnect"
 
             # Dataplane ports (Yes, dataplane ports are mapped on the RE and not PFE for vQFX10k)
-            (1..8).each do |seg_id|
+            (1..5).each do |seg_id|
                vqfx.vm.network 'private_network',
                 auto_config: false,
                 nic_type: '82540EM',
@@ -105,7 +105,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
                 config.vm.provider :virtualbox do |vb|
-                    vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                    vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "8"]
                 end
             end
         end
@@ -116,9 +116,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ######################################################################################################################################
 #        $subnet_l_mgmt = "10.87.65"
         $subnet_s_mgmt = "192.168.2"
-        $subnet_l_ctrl_data= "172.16.2"
-            (1..5).each do |l_id|
-              srv_name = ( "l-srv" + l_id.to_s ).to_sym
+        $subnet_l1_ctrl_data= "172.16.2"
+            (1..3).each do |l_id|
+              srv_name = ( "l1-srv" + l_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
                     srv.vm.box = "qarham/CentOS7.5-350GB"
                     srv.vm.hostname = "l-srv#{l_id}"
@@ -130,18 +130,48 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #                      ip:"#{$subnet_l_mgmt}.#{l_id+88}",
 #                      netmask:"255.255.255.128"
                     srv.vm.network 'private_network',
-                      ip: "#{$subnet_l_ctrl_data}.#{l_id+100}",
+                      ip: "#{$subnet_l1_ctrl_data}.#{l_id+100}",
                       nic_type: '82540EM',
                       virtualbox__intnet: "#{UUID}_vqfx2_seg#{l_id}"
                     srv.ssh.insert_key = true
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
 #                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
-                    srv.vm.provision "shell", path: "scripts/static-routes-l-server.sh"
+                    srv.vm.provision "shell", path: "scripts/static-routes-l1-server.sh"
                     config.vm.provider :virtualbox do |vb|
-                    vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                    vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "4"]
                 end
             end
         end
+
+        ######################################################################################################################################
+        ## Servers Connected to vQFX3 Leaf for Compute, BMS nodes "vqfx lo0: 2.2.2.3"                                          #######
+        ## Commented lines are for the lab setup with routable IP range assigned to the host and "br0" is used for direct nodes access #######
+        ######################################################################################################################################
+#        $subnet_l_mgmt = "10.87.65"
+        $subnet_s_mgmt = "192.168.2"
+        $subnet_l2_ctrl_data= "172.16.3"
+            (1..2).each do |l_id|
+              srv_name = ( "l2-srv" + l_id.to_s ).to_sym
+                config.vm.define srv_name do |srv|
+                    srv.vm.box = "qarham/CentOS7.5-350GB"
+                    srv.vm.hostname = "l2-srv#{l_id}"
+                    srv.vm.network 'private_network',
+                       ip:"#{$subnet_s_mgmt}.#{l_id+14}",
+                       netmask:"255.255.255.128"
+                    srv.vm.network 'private_network',
+                      ip: "#{$subnet_l2_ctrl_data}.#{l_id+100}",
+                      nic_type: '82540EM',
+                      virtualbox__intnet: "#{UUID}_vqfx3_seg#{l_id}"
+                    srv.ssh.insert_key = true
+                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
+#                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+                    srv.vm.provision "shell", path: "scripts/static-routes-l2-server.sh"
+                    config.vm.provider :virtualbox do |vb|
+                    vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "4"]
+                end
+            end
+        end
+
 
     ##############################
     ## Box provisioning        ###
@@ -150,8 +180,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     if !Vagrant::Util::Platform.windows?
         config.vm.provision "ansible" do |ansible|
             ansible.groups = {
-                "vqfx10k" => ["vqfx1", "vqfx2" ],
-                "vqfx10k-pfe"  => ["vqfx1-pfe", "vqfx2-pfe"],
+                "vqfx10k" => ["vqfx1", "vqfx2", "vqfx3" ],
+                "vqfx10k-pfe"  => ["vqfx1-pfe", "vqfx2-pfe", "vqfx3-pfe"],
                 "all:children" => ["vqfx10k", "vqfx10k-pfe"]
             }
             ansible.playbook = "pb.conf.all.commit.yaml"
