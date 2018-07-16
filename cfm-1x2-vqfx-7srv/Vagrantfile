@@ -59,12 +59,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             vqfx.vm.network 'private_network',
                 auto_config: false, nic_type: '82540EM',
                 virtualbox__intnet: "#{UUID}_vqfx#{id}_reserved-bridge"
-
-            # Interconnect link between vqfx (xe-0/0/0)
+# FIXME
+            # Interconnect link between vqfx1 and vqfx2 (xe-0/0/0)
             vqfx.vm.network 'private_network',
                 auto_config: false,
                 nic_type: '82540EM',
-                virtualbox__intnet: "#{UUID}_vqfx_interconnect"
+                virtualbox__intnet: "#{UUID}_vqfx12_interconnect"
+# FIXME
+            # Interconnect link between vqfx1 and vqfx3 (xe-0/0/1)
+            vqfx.vm.network 'private_network',
+                auto_config: false,
+                nic_type: '82540EM',
+                virtualbox__intnet: "#{UUID}_vqfx13_interconnect"
 
             # Dataplane ports (Yes, dataplane ports are mapped on the RE and not PFE for vQFX10k)
             (1..5).each do |seg_id|
@@ -104,6 +110,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
 #                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
+                    srv.vm.provision "shell", path: "scripts/lldp.sh"
                 config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "8"]
                 end
@@ -137,6 +144,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
 #                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-l1-server.sh"
+                    srv.vm.provision "shell", path: "scripts/lldp.sh"
                     config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "4"]
                 end
@@ -166,6 +174,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
 #                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-l2-server.sh"
+                    srv.vm.provision "shell", path: "scripts/lldp.sh"
                     config.vm.provider :virtualbox do |vb|
                     vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "4"]
                 end
