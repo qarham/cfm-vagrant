@@ -10,7 +10,7 @@ inet_interfaces:
     - name: xe-0/0/0
       ip: 10.0.0.1/30
       description: "connect 2 vqfx2 Leaf"
-    - name: xe-0/0/1
+    - name: xe-0/0/4
       ip: 10.0.1.1/30
       description: "connect 2 vqfx2 Leaf"
     - name: irb
