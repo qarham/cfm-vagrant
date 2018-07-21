@@ -5,7 +5,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 UUID = "fab2"
 
-## Define port mapping to build the Fabric
+#############################################################################
+## Define port mapping to build the Fabric Connections:                     #
+#### vQFX1 xe-0/0/0 - vQFX2 xe-0/0/0 & vQFX1 xe-0/0/4 - vQFX3 xe-0/0/0      #
+#############################################################################
 spine_port_map = {  1 => [1,2] }
 
 leaf_port_map  = {  2 => [1],
@@ -15,9 +18,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.ssh.insert_key = false
 
-   #####################################################
-   #  vQFX1 Spine 
-   ###########################################
+   ##########################################################################################################################
+   #  vQFX1 is a Spine with xe-0/0/0 connected to vQFX2 (leaf) xe-0/0/0 & xe-0/0/4 is connected to vQFX3 (leaf) xe-0/0/0   #
+   #  for Fabric interconnection                                                                                            #
+   ##########################################################################################################################
     (1..1).each do |id|
         re_name  = ( "vqfx" + id.to_s ).to_sym
         pfe_name = ( "vqfx" + id.to_s + "-pfe" ).to_sym
@@ -87,9 +91,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 end
 
-   #####################################################
-   #  vQFX2 & vQFX3 Leafs
-   ###########################################
+   #############################################################################################################################
+   #  vQFX2 & vQFX3 Leafs, In this topology 3 nodes are connected to vQFX2 (Leaf1) and 2 nodes are connected to vQFX3 (Leaf2)  #
+   #############################################################################################################################
     (2..3).each do |id|
         re_name  = ( "vqfx" + id.to_s ).to_sym
         pfe_name = ( "vqfx" + id.to_s + "-pfe" ).to_sym
@@ -159,10 +163,11 @@ end
     end
 end
 
-        #####################################################################################################################################
-        ## Servers Connected to vQFX1 Spine for OpenStack/Contrail Controller and Contrail-Command   "vqfx lo0: 2.2.2.1"               #######
-        ## Commented lines are for the lab setup with routable IP range assigned to the host and "br0" is used for direct nodes access #######
-        ######################################################################################################################################
+        ##########################################################################################################################################
+        # Servers Connected to vQFX1 Spine for OpenStack/Contrail Controller and Contrail-Command "vqfx lo0: 2.2.2.1" & GW irb.0: "172.16.1.1"   #                  #
+        # s-srv1 node is connected to xe-0/0/1                                                                                                   #    
+        # s-srv2 node is connected to xe-0/0/2                                                                                                   #
+        ##########################################################################################################################################
         $subnet_s_mgmt = "192.168.3"
         $subnet_s_ctrl_data= "172.16.1"
             (1..2).each do |s_id|
@@ -188,8 +193,10 @@ end
         end
 
         ######################################################################################################################################
-        ## Servers Connected to vQFX2 Leaf for Compute, CSN and BMS nodes "vqfx lo0: 2.2.2.2"                                          #######
-        ## Commented lines are for the lab setup with routable IP range assigned to the host and "br0" is used for direct nodes access #######
+        ## Servers Connected to vQFX2 Leaf for Compute, CSN and BMS nodes "vqfx lo0: 2.2.2.2" & GW irb.0: "172.16.2.1"                       #
+        # l1-srv1 node is connected to xe-0/0/1                                                                                              #    
+        # l1-srv2 node is connected to xe-0/0/2                                                                                              # 
+        # l1-srv3 node is connected to xe-0/0/3                                                                                              #
         ######################################################################################################################################
         $subnet_s_mgmt = "192.168.3"
         $subnet_l1_ctrl_data= "172.16.2"
@@ -216,8 +223,9 @@ end
         end
 
         ######################################################################################################################################
-        ## Servers Connected to vQFX3 Leaf for Compute, BMS nodes "vqfx lo0: 2.2.2.3"                                          #######
-        ## Commented lines are for the lab setup with routable IP range assigned to the host and "br0" is used for direct nodes access #######
+        # Servers Connected to vQFX3 Leaf for Compute, BMS nodes "vqfx lo0: 2.2.2.3" & GW irb.0: "172.16.3.1"                                #
+        # l2-srv1 node is connected to xe-0/0/1                                                                                              #    
+        # l2-srv2 node is connected to xe-0/0/2                                                                                              #
         ######################################################################################################################################
         $subnet_s_mgmt = "192.168.3"
         $subnet_l2_ctrl_data= "172.16.3"
