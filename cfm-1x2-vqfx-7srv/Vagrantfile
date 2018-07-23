@@ -204,7 +204,7 @@ end
               srv_name = ( "l1-srv" + l_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
                     srv.vm.box = "qarham/CentOS7.5-350GB"
-                    srv.vm.hostname = "l-srv#{l_id}"
+                    srv.vm.hostname = "l1-srv#{l_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{l_id+11}",
                        netmask:"255.255.255.128"
