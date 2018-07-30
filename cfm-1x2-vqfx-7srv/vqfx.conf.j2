@@ -114,8 +114,12 @@ policy-options {
                 interface [ lo0.0 irb.0 ];
             }
             then accept;
-        }
+        }                               
         term 2 {
+            from protocol bgp;
+            then accept;
+        }
+        term 3 {
             then reject;
         }
     }

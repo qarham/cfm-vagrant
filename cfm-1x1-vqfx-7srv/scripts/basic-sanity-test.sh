@@ -17,7 +17,8 @@ pip install python-heatclient
 # Check Contrail Status
 contrail-status
 
-source /etc/kolla/admin-openrc.sh
+source /etc/kolla/kolla-toolbox/admin-openrc.sh
+#source /etc/kolla/admin-openrc.sh
 
 #download Cirros image
 wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img

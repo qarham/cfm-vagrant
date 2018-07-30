@@ -9,7 +9,7 @@ provider_config:
     domainsuffix: local
 instances:
   s-srv2:
-    ip: 192.168.10.102
+    ip: 192.168.3.11
     provider: bms
     roles:
       config:
@@ -22,40 +22,38 @@ instances:
       openstack_network:
       openstack_storage:
       openstack_monitoring:
-  l1-srv2:
-    ip: 192.168.10.104
-    provider: bms
-    roles:
-      vrouter:
-        TSN_EVPN_MODE: true
-        VROUTER_GATEWAY: 172.16.2.1
-      openstack_compute:
   l1-srv1:
-    ip: 192.168.10.103
+    ip: 192.168.3.12
     provider: bms
     roles:
       vrouter:
         VROUTER_GATEWAY: 172.16.2.1
       openstack_compute:
-  l1-srv1:
-    ip: 192.168.10.107
+  l2-srv1:
+    ip: 192.168.3.15
     provider: bms
     roles:
       vrouter:
         VROUTER_GATEWAY: 172.16.3.1
       openstack_compute:
+  l1-srv2:
+    ip: 192.168.3.13
+    provider: bms
+    roles:
+      vrouter:
+        TSN_EVPN_MODE: true
+        VROUTER_GATEWAY: 172.16.2.1
 contrail_configuration:
-  CONTRAIL_VERSION: ocata-5.0-131
+  CONTRAIL_VERSION: ocata-5.0-161
   CLOUD_ORCHESTRATOR: openstack
   RABBITMQ_NODE_PORT: 5673
-  VROUTER_GATEWAY: 172.16.2.1
   ENCAP_PRIORITY: VXLAN,MPLSoUDP,MPLSoGRE
   AUTH_MODE: keystone
-  KEYSTONE_AUTH_HOST: 192.168.10.102
+  KEYSTONE_AUTH_HOST: 192.168.3.11
   KEYSTONE_AUTH_URL_VERSION: /v3
-  CONTROLLER_NODES: 192.168.10.102
+  CONTROLLER_NODES: 192.168.3.11
   CONTROL_NODES: 172.16.1.102
-  TSN_NODES: 172.16.2.103
+  TSN_NODES: 172.16.2.102
 kolla_config:
   customize:
     nova.conf: |

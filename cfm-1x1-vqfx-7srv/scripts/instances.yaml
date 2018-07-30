@@ -9,7 +9,7 @@ provider_config:
     domainsuffix: local
 instances:
   s-srv2:
-    ip: 192.168.10.102
+    ip: 192.168.2.11
     provider: bms
     roles:
       config:
@@ -22,37 +22,37 @@ instances:
       openstack_network:
       openstack_storage:
       openstack_monitoring:
-  l-srv2:
-    ip: 192.168.10.104
+  l-srv1:
+    ip: 192.168.2.12
     provider: bms
     roles:
       vrouter:
         VROUTER_GATEWAY: 172.16.2.1
       openstack_compute:
-  l-srv1:
-    ip: 192.168.10.103
+  l-srv2:
+    ip: 192.168.2.13
     provider: bms
     roles:
       vrouter:
         VROUTER_GATEWAY: 172.16.2.1
       openstack_compute:
   l-srv3:
-    ip: 192.168.10.105
+    ip: 192.168.2.14
     provider: bms
     roles:
       vrouter:
         TSN_EVPN_MODE: true
         VROUTER_GATEWAY: 172.16.2.1
 contrail_configuration:
-  CONTRAIL_VERSION: ocata-5.0-131
+  CONTRAIL_VERSION: ocata-5.0-161
   CLOUD_ORCHESTRATOR: openstack
   RABBITMQ_NODE_PORT: 5673
   VROUTER_GATEWAY: 172.16.2.1
   ENCAP_PRIORITY: VXLAN,MPLSoUDP,MPLSoGRE
   AUTH_MODE: keystone
-  KEYSTONE_AUTH_HOST: 192.168.10.102
+  KEYSTONE_AUTH_HOST: 192.168.2.11
   KEYSTONE_AUTH_URL_VERSION: /v3
-  CONTROLLER_NODES: 192.168.10.102
+  CONTROLLER_NODES: 192.168.2.11
   CONTROL_NODES: 172.16.1.102
   TSN_NODES: 172.16.2.103
 kolla_config:
