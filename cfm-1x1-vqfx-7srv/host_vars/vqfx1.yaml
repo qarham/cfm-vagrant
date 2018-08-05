@@ -5,6 +5,9 @@ interfaces:
     - name: xe-0/0/2
       description: "connect s-srv2"
       vlan_id: 1
+    - name: xe-0/0/3
+      description: "connect s-srv3"
+      vlan_id: 1
 
 inet_interfaces:
     - name: xe-0/0/0

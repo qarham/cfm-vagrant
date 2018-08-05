@@ -82,6 +82,13 @@ interfaces {
         }
     }
 }
+snmp {
+    location "";
+    contact "";
+    community public {
+        authorization read-only;
+    }
+}
 routing-options {
     router-id {{ router_id }};
     autonomous-system {{ overlay_asn }};
