@@ -84,7 +84,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #        $subnet_s_mgmt = "10.87.65"
         $subnet_s_mgmt = "192.168.2"
         $subnet_s_ctrl_data= "172.16.1"
-            (1..2).each do |s_id|
+            (1..3).each do |s_id|
               srv_name = ( "s-srv" + s_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
                     srv.vm.box = "qarham/CentOS7.5-350GB"
@@ -102,10 +102,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                       virtualbox__intnet: "#{UUID}_vqfx1_seg#{s_id}"
                     srv.ssh.insert_key = true
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
-#                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+#                   srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
+                    srv.vm.provision "shell", path: "scripts/ntp.sh"
                 config.vm.provider :virtualbox do |vb|
-                    vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                    if s_id == 1 or s_id == 3
+                         vb.customize ["modifyvm", :id, "--memory", "8192", "--cpus", "2"]
+                    else
+                        vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+        	    end                
                 end
             end
         end
@@ -117,13 +122,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #        $subnet_l_mgmt = "10.87.65"
         $subnet_s_mgmt = "192.168.2"
         $subnet_l_ctrl_data= "172.16.2"
-            (1..5).each do |l_id|
+            (1..4).each do |l_id|
               srv_name = ( "l-srv" + l_id.to_s ).to_sym
                 config.vm.define srv_name do |srv|
                     srv.vm.box = "qarham/CentOS7.5-350GB"
                     srv.vm.hostname = "l-srv#{l_id}"
                     srv.vm.network 'private_network',
-                       ip:"#{$subnet_s_mgmt}.#{l_id+11}",
+                       ip:"#{$subnet_s_mgmt}.#{l_id+12}",
                        netmask:"255.255.255.128"
 #                    srv.vm.network "public_network",
 #                      bridge: "br0",
@@ -137,8 +142,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
 #                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-l-server.sh"
+                    srv.vm.provision "shell", path: "scripts/ntp.sh"
                     config.vm.provider :virtualbox do |vb|
-                    vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                    if l_id == 3 or l_id == 4
+                         vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "2"]
+                    else
+                        vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                    end
                 end
             end
         end
