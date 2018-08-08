@@ -2,7 +2,7 @@
 
 # Basic Packages Install and Enable epel repo
 
-yum --enablerepo=extras install epel-release
+yum --enablerepo=extras install -y epel-release
 yum install -y gcc dkms make qt libgomp patch git wget tcpdump bridge-utils python python-pip
 yum install -y kernel-headers kernel-devel binutils glibc-headers glibc-devel font-forge
 

@@ -1,11 +1,11 @@
 global_configuration:
-  CONTAINER_REGISTRY: 10.84.5.81:5000
+  CONTAINER_REGISTRY: 10.84.5.81:5010
   REGISTRY_PRIVATE_INSECURE: True
 provider_config:
   bms:
     ssh_user: root
     ssh_pwd: c0ntrail123
-    ntpserver: 172.21.200.60
+    ntpserver: 10.19.6.55
     domainsuffix: local
 instances:
   s-srv2:
@@ -22,29 +22,29 @@ instances:
       openstack_network:
       openstack_storage:
       openstack_monitoring:
-  l-srv1:
-    ip: 192.168.2.12
+  l-srv2:
+    ip: 192.168.2.14
     provider: bms
     roles:
       vrouter:
         VROUTER_GATEWAY: 172.16.2.1
       openstack_compute:
-  l-srv2:
+  l-srv1:
     ip: 192.168.2.13
     provider: bms
     roles:
       vrouter:
         VROUTER_GATEWAY: 172.16.2.1
       openstack_compute:
-  l-srv3:
-    ip: 192.168.2.14
+  s-srv3:
+    ip: 192.168.2.12
     provider: bms
     roles:
       vrouter:
         TSN_EVPN_MODE: true
-        VROUTER_GATEWAY: 172.16.2.1
+        VROUTER_GATEWAY: 172.16.1.1
 contrail_configuration:
-  CONTRAIL_VERSION: ocata-5.0-161
+  CONTRAIL_VERSION: ocata-5.0-154
   CLOUD_ORCHESTRATOR: openstack
   RABBITMQ_NODE_PORT: 5673
   VROUTER_GATEWAY: 172.16.2.1
@@ -54,13 +54,8 @@ contrail_configuration:
   KEYSTONE_AUTH_URL_VERSION: /v3
   CONTROLLER_NODES: 192.168.2.11
   CONTROL_NODES: 172.16.1.102
-  TSN_NODES: 172.16.2.103
+  TSN_NODES: 172.16.1.103
 kolla_config:
-  customize:
-    nova.conf: |
-      [libvirt]
-      virt_type=qemu
-      cpu_mode=none
   kolla_globals:
     openstack_release: ocata
     enable_haproxy: no
