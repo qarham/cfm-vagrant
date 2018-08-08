@@ -8,12 +8,11 @@ Note: Contrail Command can be isnatlled on your PC/Laptop or any other machine a
 
 ```bash
 # Let's 1st install git and ansible SW
-yum -y install git ansible-2.4.2.0
-
 cd /root/cfm-vagrant/cfm-1x1-vqfx-7srv
 vagrant ssh s-srv1
 sudo su
 cd /opt
+yum -y install git ansible-2.4.2.0
 
 # Git Clone Contrail Command Deployer repo
 git clone https://github.com/Juniper/contrail-command-deployer.git
@@ -21,7 +20,7 @@ git clone https://github.com/Juniper/contrail-command-deployer.git
 cd contrail-command-deployer
 vi config/command_servers.yml
 
-# Add IP address of s-srv1 "192.168.2.10" and TAG for the Contrail Command Container, for our testing we used 5.0-119
+# Add IP address of s-srv1 "192.168.2.10" and TAG for the Contrail Command Container, for our testing we used 5.0-154
 
 
 # Start Contrail Command Deployment 

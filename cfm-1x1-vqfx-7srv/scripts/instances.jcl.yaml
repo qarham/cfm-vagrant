@@ -1,12 +1,12 @@
 global_configuration:
-  CONTAINER_REGISTRY: 10.84.5.81:5010
+  CONTAINER_REGISTRY: 10.19.100.2:8787
   REGISTRY_PRIVATE_INSECURE: True
 provider_config:
   bms:
     ssh_user: root
     ssh_pwd: c0ntrail123
-    ntpserver: 172.21.200.60
-    domainsuffix: local
+    ntpserver: 10.19.6.55
+    domainsuffix: opencontrail.org
 instances:
   s-srv2:
     ip: 192.168.2.11
@@ -21,16 +21,17 @@ instances:
       openstack_control:
       openstack_network:
       openstack_storage:
+        disk_partition: vda
       openstack_monitoring:
   l-srv2:
-    ip: 192.168.2.14
+    ip: 192.168.2.13
     provider: bms
     roles:
       vrouter:
         VROUTER_GATEWAY: 172.16.2.1
       openstack_compute:
-  l-srv1:
-    ip: 192.168.2.13
+  l-srv3:
+    ip: 192.168.2.14
     provider: bms
     roles:
       vrouter:

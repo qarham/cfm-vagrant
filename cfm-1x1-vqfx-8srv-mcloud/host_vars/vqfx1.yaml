@@ -1,0 +1,28 @@
+interfaces:
+    - name: xe-0/0/1
+      description: "connect s-srv1"
+      vlan_id: 1
+    - name: xe-0/0/2
+      description: "connect s-srv2"
+      vlan_id: 1
+    - name: xe-0/0/3
+      description: "connect s-srv3"
+      vlan_id: 1
+
+inet_interfaces:
+    - name: xe-0/0/0
+      ip: 10.0.0.1/30
+      description: "connect 2 vqfx2 Leaf"
+    - name: irb
+      description: "vRouter Gateway for all srvs"
+      ip: 172.16.1.1/24
+    - name: lo0
+      description: "vqfx Loopback"
+      ip: 2.2.2.1/32   
+
+router_id: 2.2.2.1
+overlay_asn: 64512
+local_as: 64601
+peer_as: 64501
+neighbor: 10.0.0.2
+local_address: 2.2.2.1
