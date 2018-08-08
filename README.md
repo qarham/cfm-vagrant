@@ -32,6 +32,7 @@ Frist step is prepartion of host machine and the host can be running an Ubuntu o
     * Ansible 2.5.3
 
 ```bash
+yum install -y git
 cd /root
 git clone https://github.com/qarham/cfm-vagrant.git
 cd cfm-vagrant/scripts

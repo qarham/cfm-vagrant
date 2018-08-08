@@ -3,8 +3,8 @@
 # Basic Packages Install and Enable epel repo
 
 yum --enablerepo=extras install -y epel-release
-yum install -y gcc dkms make qt libgomp patch git wget tcpdump bridge-utils python python-pip
-yum install -y kernel-headers kernel-devel binutils glibc-headers glibc-devel font-forge
+yum install -y gcc dkms make qt libgomp patch git wget tcpdump bridge-utils python python-pip tmux
+yum install -y kernel-headers kernel-devel kernel-devel-3.10.0-862.el7.x86_64 binutils glibc-headers glibc-devel font-forge
 
 echo "VirtualBox Install"
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | rpm --import -
@@ -27,4 +27,7 @@ echo "JunOS Ansible modules installation"
 pip install --upgrade pip
 pip install jxmlease
 pip install junos-eznc
+
+yum install kernel-devel -y
+/sbin/vboxconfig
 
