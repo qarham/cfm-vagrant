@@ -139,12 +139,20 @@ Now after brining setup up and basic validation it's time to start installing Co
 ## How to use FoxyProxy for GUI access
 
 Follow these steps for GUI access via FoxyProxy.
+
+### Forxy Proxy for Chrome (Recomended)
+
+Note: I used Chrome FoxyProxy add-on by creating a separate Chrome profile for the testing
+
+![Web Console](/docs/images/FoxyProxy-Chrome-Install.png)
+
+![Web Console](/docs/images/FoxyProxy-Chrome-Setttings.png)
+
+
+### Forxy Proxy for FireFox
 1- Open FireFox and open https://addons.mozilla.org/en-US/firefox/ URL.
 2- Search for FoxyProxy and select "FoxyProxy Standard"
 3- Click on "Add to Firefox"
-
-
-Note: I used FirFox FoxyProxy add-on
 
 
 ![Web Console](/docs/images/FoxyProxy-Install.png)
@@ -172,3 +180,5 @@ Now enable FoxyProxy add-on by selecting the profile created earlier and open Co
 * <https://github.com/Juniper/contrail-ansible-deployer/wiki>
 * https://github.com/Juniper/contrail-command-deployer/wiki/Using-Ansible-to-launch-the-Contrail-Command-Containers
 * <https://github.com/Juniper/vqfx10k-vagrant>
+* <https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4>
+* 
