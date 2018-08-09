@@ -176,6 +176,11 @@ Now let's verify after configuring vQFX in spine & leaf role with basic config B
 show bgp summary
 
 show route receive-protocol bgp 172.16.1.102
+
+On the browser (Contrail introspect):
+
+http://192.168.2.11:8083/Snh_ShowBgpNeighborSummaryReq?search_string=
+
  ```
 
 ### References
