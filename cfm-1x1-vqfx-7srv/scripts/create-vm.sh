@@ -34,7 +34,7 @@ sleep 20
 echo "Check VM status"
 openstack server list
 
-echo "Finished Creating VMs"
+echo "Finish Creating VMs"
 
 
 
