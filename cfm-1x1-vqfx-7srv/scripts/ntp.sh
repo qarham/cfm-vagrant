@@ -10,4 +10,5 @@ EOFF
 systemctl restart ntpd
 sleep 5
 systemctl restart ntpd
-
+yum install -y net-tools
+yum install -y tcpdump
