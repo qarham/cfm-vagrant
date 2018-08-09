@@ -151,6 +151,7 @@ tail -200f /var/log/contrail/contrail-fabric-ansible.log
 
 ## 5. Fabric vQFX Role Assignment
 
+***vQFX1 as Spine***
 ![Fabric Creation](images/Fabric-vqfx1-spine.png)
 
 ```bash
@@ -163,6 +164,7 @@ set groups __contrail__ policy-options policy-statement _contrail_ibgp_export_po
 
  ```
 
+***vQFX2 as Leaf***
 ![Fabric Creation](images/Fabric-vqfx2-leaf.png)
 
 Note: No config change on vQFX1 (leaf)

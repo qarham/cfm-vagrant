@@ -2,7 +2,7 @@
 
 Here are the steps for setting up FoxyProxy in Chrome.
 
-1. Create a new chrome profile for the workshop "CFM-Workshop"
+1. Create a new chrome profile for the workshop "CFM-Workshop" and select "No thanks" for the signin page.
    
 ![FoxyProxy Chrome](images/FoxyProxy-Add-Person.png)
 

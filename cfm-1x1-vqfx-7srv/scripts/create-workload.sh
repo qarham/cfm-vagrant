@@ -8,6 +8,13 @@ openstack image list
 openstack flavor list
 openstack network list
 
+# Create two VNs VN-01 CIDR 10.1.1.0/24 & VN-02 20.1.1.0/24
+openstack network create VN-01
+openstack subnet create --subnet-range 10.1.1.0/24 --network VN-01 VN01-VN-subnet
+
+openstack network create VN-02
+openstack subnet create --subnet-range 20.1.1.0/24 --network VN-02 VN02-VN-subnet
+
 # Create VMs on l-srv1 & l-srv2
 openstack server create --flavor m1.tiny --image 'cirros2' \
     --nic net-id=VN-01 \
@@ -35,6 +42,8 @@ echo "Check VM status"
 openstack server list
 
 echo "Finish Creating VMs"
+
+
 
 
 
