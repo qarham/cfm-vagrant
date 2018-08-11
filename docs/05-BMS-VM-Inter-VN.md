@@ -324,6 +324,6 @@ show arp no-resolve
 ```
 7. EVPN Type-5 routing table on the Contrail control-node.
 
-![Contrail EVPN Type5 routing table](https://github.com/vshenoy83/cfm-vagrant/blob/master/cfm-1x1-vqfx-7srv/images/recipe5/1.png)
+![Contrail EVPN Type5 routing table](https://github.com/vshenoy83/cfm-vagrant/blob/master/cfm-1x1-vqfx-7srv/images/recipe5/5.png)
 
 
