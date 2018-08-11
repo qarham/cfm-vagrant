@@ -21,7 +21,7 @@ that IP address. On l-srv4 flush the 172 ip address on eth2 and statically confi
 
 ![Launch BMS2 in VN-02](https://github.com/vshenoy83/cfm-vagrant/blob/master/cfm-1x1-vqfx-7srv/images/recipe5/2.png)
 
-##3. Configs pushed to the leaf vqfx.
+## Configs pushed to the leaf vqfx.
 
 ```bash
 set groups __contrail__ interfaces lo0 unit 0 family inet address 2.2.2.2/32 primary
@@ -77,7 +77,7 @@ set groups __contrail__ vlans contrail_VN-02-l2-6 interface xe-0/0/4.0
 set groups __contrail__ vlans contrail_VN-02-l2-6 vxlan vni 6
 ```
 
-##3. BMS connection to VMs in VN-02.
+## 3. BMS2 connectivity to VMs in VN-02.
 
 ```bash
 [root@l-srv4 ~]# ip addr flush dev eth2
@@ -144,7 +144,7 @@ show evpn database | no-more
 show ethernet-switching table | no-more
 ```
 
-##4. Connecting VN-01 and VN-02 using EVPN Type-5 logical router.
+## 4. Connecting VN-01 and VN-02 using EVPN Type-5 logical router.
 
 Create a logical router LR1 and extend it to vqfx1 for EVPN Type-5 CRB functionality. Attach VN-01 and VN-02. Assign a L3 VNI of 1024.
 
@@ -155,7 +155,7 @@ Create a logical router LR1 and extend it to vqfx1 for EVPN Type-5 CRB functiona
 Note: Inorder to enable EVPN type-5 feature on Contrail VXLAN routing should be enabled at the project level.
 ```
 
-##5. Configuration pushed to vQFX spine switch.
+## Configuration pushed to vQFX spine switch.
 
 ```bash
 vagrant@vqfx1# show groups __contrail__ | display set | no-more
@@ -241,7 +241,7 @@ set groups __contrail__ vlans contrail_VN-02-l2-6 l3-interface irb.6
 set groups __contrail__ vlans contrail_VN-02-l2-6 vxlan vni 6
 ```
 
-##6. BMS1 connectivity to VMs and BMS in VN-01 and VN-02.
+## 5. BMS1 connectivity to VMs and BMS in VN-01 and VN-02.
 
 ```bash
 [root@l-srv3 ~]# ip addr
@@ -322,7 +322,7 @@ show route table default-switch.evpn.0
 show evpn database
 show arp no-resolve
 ```
-7. EVPN Type-5 routing table on the Contrail control-node.
+## EVPN Type-5 routing table on the Contrail control-node.
 
 ![Contrail EVPN Type5 routing table](https://github.com/vshenoy83/cfm-vagrant/blob/master/cfm-1x1-vqfx-7srv/images/recipe5/5.png)
 
