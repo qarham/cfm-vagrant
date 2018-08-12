@@ -135,45 +135,10 @@ Now after brining setup up and basic validation it's time to start installing Co
 
 * ### [UC-04-Intra_VN_BMS_VM](docs/04-BMS-VM-Intra-VN.md)
 
+* ### [UC-05-Inter_VNs_BMS_VM](docs/05-BMS-VM-Inter-VN.md)
 
-## How to use FoxyProxy for GUI access
+* ### [UC-06-BM_SecurityGroups](docs/06-BMS-Security.md)
 
-Follow these steps for GUI access via FoxyProxy.
-
-### Forxy Proxy for Chrome (Recomended)
-
-Note: I used Chrome FoxyProxy add-on by creating a separate Chrome profile for the testing
-
-![Web Console](/docs/images/FoxyProxy-Chrome-Install.png)
-
-![Web Console](/docs/images/FoxyProxy-Chrome-Setttings.png)
-
-
-### Forxy Proxy for FireFox
-1- Open FireFox and open https://addons.mozilla.org/en-US/firefox/ URL.
-2- Search for FoxyProxy and select "FoxyProxy Standard"
-3- Click on "Add to Firefox"
-
-
-![Web Console](/docs/images/FoxyProxy-Install.png)
-
-Now open ssh pot forwading session to Host 10.1.1.100 using port 1080. please change IP as per your host config
-
-```bash
-your-laptop> ssh root@10.87.65.30 -D 1080
-```
-
-Configure FireFox FoxyProxy add-on by configuring "127.0.0.1" & port 1080 as Scoks4 as captured in screenshot. 
-
-![Web Console](/docs/images/FoxyProxy-Configure.png)
-
-Now enable FoxyProxy add-on by selecting the profile created earlier and open Contrail GUI using IP address of Vagrant VMs 192.168.2.11/12
-
-***Contrail Command GUI*** https://192.168.2.10:9091
-
-***Contrail OLD GUI*** https://192.168.2.11:8143
-
-***OpenStack GUI*** http://192.168.2.11
 
 ### References
 

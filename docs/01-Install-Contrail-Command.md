@@ -33,16 +33,17 @@ ansible-playbook playbooks/deploy.yml
 
 ## Contrail Command GUI Access via FoxyProxy
 
-Install Forxyproxy addon for Chrome or FireFox as described on the main README file. Here I am using "chrome" and sharing screenshots of FoxyProxy setting for Chrome
+Please use following links for FoxyProxy Setup and configuration. 
+
+* ### [FoxyProxy Setup for Chrome](FoxyProxy-Chrome-Setup.md)
+
+* ### [FoxyProxy Setup for FireFox](FoxyProxy-FireFox-Setup.md)
+
 
 ```bash
 # 1st step is open SSH session to the host node 
 ssh root@10.87.65.30 -D 1080
  ```
-
-![Contrail Command GUI](images/FoxyProxy-Chrome-Setttings.png)
-
-Select Configured option on the right hand side at the yop of Chrome bar and just browse normally using s-srv1 IP 192.168.2.10 at port 9091
 
 * https://192.168.2.10:9091
     * Username/Password: admin/contrail123
