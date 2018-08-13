@@ -3,14 +3,28 @@
 
 ## 1. Create Fabric
 
-In our case vQFXs are already created via Vagrant so please use "Existing "
+![Fabric Creation](images/Fabric-Creation-Steps.png)
+
+In our case vQFXs are already created via Vagrant so please use "Existing ".
+
+Login to Contrail Command via FoxyProxy and click "Fabric" --> "Create Fabric"
 
 ![Fabric Creation](images/Fabric-Creation-01.png)
+
+Create Fabric Name, add following namespaces and credentials:
+
+* Name: Fabric01
+* Fabric Namespace:
+  * Fabric ASN: 64512
+  * Fabric MGMT IP addresses: 172.16.1.1/32 & 172.16.2.1/32
+  * Credentials: root/c0ntrail123
 
 ![Fabric Creation](images/Fabric-Creation-02.png)
 
 
 ## 2. Fabric Discovery
+
+Please follow below screenshots to start fabric discovery and check ansible playbooks logs.
 
 ![Fabric Creation](images/Fabric-Discovery-Start-01.png)
 
@@ -21,6 +35,11 @@ In our case vQFXs are already created via Vagrant so please use "Existing "
 Check following logs during discovery
 
 ```bash
+cd cfm-vagrant/cfm-1x1-vqfx-7srv
+vagrant status
+
+vagrant ssh s-srv2
+
 tail -200f /var/log/contrail/contrail-fabric-ansible-playbooks.log
 
 tail -200f /var/log/contrail/contrail-fabric-ansible.log
@@ -28,17 +47,22 @@ tail -200f /var/log/contrail/contrail-fabric-ansible.log
 
 ## 3. Fabric Onboarding
 
+Please follow below screenshots to start fabric onboarding and check ansible playbooks logs.
+
 ![Fabric Creation](images/Fabric-Onboarding-Start.png)
 
 ![Fabric Creation](images/Fabric-Onboarding-Complete-01.png)
 
 ![Fabric Creation](images/Fabric-Onboarding-Complete-02.png)
 
-
-
 Check following logs during discovery
 
 ```bash
+cd cfm-vagrant/cfm-1x1-vqfx-7srv
+vagrant status
+
+vagrant ssh s-srv2
+
 tail -200f /var/log/contrail/contrail-fabric-ansible-playbooks.log
 
 tail -200f /var/log/contrail/contrail-fabric-ansible.log
@@ -46,7 +70,7 @@ tail -200f /var/log/contrail/contrail-fabric-ansible.log
 
 ## 4. Basic Fabric Configuration (BGP Routers Add)
 
-This is the third mandatory step which will add BGP Routers on Contrail Controller end and also configrue the vQFXs with BGP configuration.
+This is the last mandatory step which will add BGP Routers on Contrail Controller end and also configrue the vQFXs with BGP configuration.
 
 ![Fabric Creation](images/Fabric-Configure-01.png)
 
