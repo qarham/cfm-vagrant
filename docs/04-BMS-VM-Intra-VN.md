@@ -2,7 +2,20 @@
 
 At this stage our Contrail Fabric Manager setup is up and ready for some overlay/underlay use-cases testing. Let's test BMS to VM intra Virtual Network connectivity, please follow below instructions.
 
-## 1. Add Non-LCM BMS node
+## 1. Created Workload
+
+Let's first create two VMs on each compute l-srv1 & l-srv2 from VN VN-01 CIDR "10.1.1.0/24" & VN-02 CIDR "20.1.1.0/24" using the script.
+
+Note: For the workshop the script is already in "/home/vagrant" folder.
+
+```bash
+wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-7srv/scripts/create-workload.sh
+chmod +x create-workload.sh
+
+./create-workload.sh
+ ```
+
+## 2. Add Non-LCM BMS node
 
 In our topology BMS is also a VM and two BMS Non-LCM servers "l-srv4 & l-srv5" are already added during "Server Addition" step of Infrastructure creation.
 

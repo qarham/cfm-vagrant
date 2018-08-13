@@ -9,6 +9,10 @@ Note: Contrail Command can be isnatlled on your PC/Laptop or any other machine a
 ```bash
 # Let's 1st install git and ansible SW
 cd /root/cfm-vagrant/cfm-1x1-vqfx-7srv
+
+# Check status of all servers and vQFXs using following command
+vagrant status
+
 vagrant ssh s-srv1
 sudo su
 cd /opt

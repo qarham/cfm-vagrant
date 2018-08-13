@@ -146,7 +146,22 @@ cpu_mode=none
 docker restart nova_compute
 ```
 
-## 12. Basic Sanity Check
+## 12. Install OpenStack Client and Images
+
+After OpenStack and Contrail is installed, let's install OpenStack Client on s-srv2, download cirros images, add images and create flavors.
+
+Note: For lab workshop the script is already in "/home/vagrant" folder
+
+```bash
+
+wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-7srv/scripts/install-os-clinet-images.sh
+chmod +x install-os-clinet-images.sh
+
+./install-os-clinet-images.sh
+
+ ```
+
+## 13. Basic Sanity Check (Not required for workshop)
 
 To make sure Cluster provisioning is successful and no issue let's create some work load using a simple basic sanity script "basic-sanity-test.sh".
 
