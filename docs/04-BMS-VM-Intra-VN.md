@@ -208,6 +208,12 @@ default-switch.evpn.0: 3 destinations, 3 routes (3 active, 0 holddown, 0 hidden)
 
 Connect to VM created on VN01 via Console or LinkLocal IP (from compute) and get the MAC address OR get the MAC from the VM VMI port in Contrail GUI. After getting the MAC now add static MAC entry using following command on BMS1
 
+***How to get MAC from New Contrail Command UI***
+
+![Fabric Creation](images/VMI-VN01-MAC-CC.png)
+
+***How to get MAC from old Contrail UI***
+
 ![Fabric Creation](images/VMI-VN01-MAC-Contrail.png)
 
 ```bash
