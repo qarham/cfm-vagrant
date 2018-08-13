@@ -34,6 +34,8 @@ ip link show eth2
 
 Update default security group for ingress rule and allow all traffic.
 
+* Overlay --> Security Group --> Edit SecurittyGroups
+
 ![Fabric Creation](images/Fabric-BMS-SG-Update.png)
 
 
@@ -42,38 +44,31 @@ Update default security group for ingress rule and allow all traffic.
 ![Fabric Creation](images/Fabric-BMS-Instance-01.png)
 
 ```bash
+dhclient eth2
 
+# In case you have to kill dhclient and renew the IP use following steps
+pkill dhclient
+dhclient eth2
  ```
 
-On CSN node "l-srv3" monitor DHCP request from BMS instances and check right IP is assigned to BMS instance. In our case 10.1.1.5 is assigned to BMS instance "bms1"
+On CSN node "s-srv3" monitor DHCP request from BMS instances and check right IP is assigned to BMS instance. In our case 10.1.1.100 is assigned to BMS instance "bms1"
+
 
 ```bash
 tcpdump -nei eth2 port 4789
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on eth2, link-type EN10MB (Ethernet), capture size 262144 bytes
-
-
-15:15:44.546299 02:05:86:71:24:00 > 08:00:27:87:cc:9b, ethertype IPv4 (0x0800), length 140: 1.1.1.1.27314 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:83:33:ad > 33:33:00:00:00:16, ethertype IPv6 (0x86dd), length 90: :: > ff02::16: HBH ICMP6, multicast listener report v2, 1 group record(s), length 28
-15:15:44.645701 02:05:86:71:24:00 > 08:00:27:87:cc:9b, ethertype IPv4 (0x0800), length 392: 1.1.1.1.10294 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:83:33:ad > Broadcast, ethertype IPv4 (0x0800), length 342: 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 08:00:27:83:33:ad, length 300
-15:15:44.775775 02:05:86:71:24:00 > 08:00:27:87:cc:9b, ethertype IPv4 (0x0800), length 128: 1.1.1.1.mpnjsomg > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:83:33:ad > 33:33:ff:83:33:ad, ethertype IPv6 (0x86dd), length 78: :: > ff02::1:ff83:33ad: ICMP6, neighbor solicitation, who has fe80::a00:27ff:fe83:33ad, length 24
-15:15:45.296087 02:05:86:71:24:00 > 08:00:27:87:cc:9b, ethertype IPv4 (0x0800), length 140: 1.1.1.1.27314 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:83:33:ad > 33:33:00:00:00:16, ethertype IPv6 (0x86dd), length 90: :: > ff02::16: HBH ICMP6, multicast listener report v2, 1 group record(s), length 28
-15:15:45.777764 02:05:86:71:24:00 > 08:00:27:87:cc:9b, ethertype IPv4 (0x0800), length 140: 1.1.1.1.8514 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:83:33:ad > 33:33:00:00:00:16, ethertype IPv6 (0x86dd), length 90: fe80::a00:27ff:fe83:33ad > ff02::16: HBH ICMP6, multicast listener report v2, 1 group record(s), length 28
-15:15:46.177409 02:05:86:71:24:00 > 08:00:27:87:cc:9b, ethertype IPv4 (0x0800), length 140: 1.1.1.1.8514 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:83:33:ad > 33:33:00:00:00:16, ethertype IPv6 (0x86dd), length 90: fe80::a00:27ff:fe83:33ad > ff02::16: HBH ICMP6, multicast listener report v2, 1 group record(s), length 28
-15:15:48.516623 02:05:86:71:24:00 > 08:00:27:87:cc:9b, ethertype IPv4 (0x0800), length 392: 1.1.1.1.10294 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:83:33:ad > Broadcast, ethertype IPv4 (0x0800), length 342: 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 08:00:27:83:33:ad, length 300
-15:15:48.517523 08:00:27:87:cc:9b > 02:05:86:71:24:00, ethertype IPv4 (0x0800), length 372: 172.16.1.103.61908 > 1.1.1.1.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:87:cc:9b > 08:00:27:83:33:ad, ethertype IPv4 (0x0800), length 322: 10.1.1.2.bootps > 10.1.1.4.bootpc: BOOTP/DHCP, Reply, length 280
-15:15:48.718555 02:05:86:71:24:00 > 08:00:27:87:cc:9b, ethertype IPv4 (0x0800), length 392: 1.1.1.1.10294 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:83:33:ad > Broadcast, ethertype IPv4 (0x0800), length 342: 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 08:00:27:83:33:ad, length 300
-15:15:48.719045 08:00:27:87:cc:9b > 02:05:86:71:24:00, ethertype IPv4 (0x0800), length 372: 172.16.1.103.61908 > 1.1.1.1.4789: VXLAN, flags [I] (0x08), vni 4
-08:00:27:87:cc:9b > 08:00:27:83:33:ad, ethertype IPv4 (0x0800), length 322: 10.1.1.2.bootps > 10.1.1.4.bootpc: BOOTP/DHCP, Reply, length 280
+18:49:35.418985 02:05:86:71:f0:00 > 08:00:27:a6:81:14, ethertype IPv4 (0x0800), length 392: 2.2.2.2.27334 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
+08:00:27:86:06:12 > Broadcast, ethertype IPv4 (0x0800), length 342: 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 08:00:27:86:06:12, length 300
+18:49:35.419389 08:00:27:a6:81:14 > 02:05:86:71:f0:00, ethertype IPv4 (0x0800), length 372: 172.16.1.103.62216 > 2.2.2.2.4789: VXLAN, flags [I] (0x08), vni 4
+08:00:27:a6:81:14 > 08:00:27:86:06:12, ethertype IPv4 (0x0800), length 322: 10.1.1.2.bootps > 10.1.1.100.bootpc: BOOTP/DHCP, Reply, length 280
+18:49:35.718894 02:05:86:71:f0:00 > 08:00:27:a6:81:14, ethertype IPv4 (0x0800), length 110: 2.2.2.2.9569 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
+08:00:27:86:06:12 > Broadcast, ethertype ARP (0x0806), length 60: Request who-has 10.1.1.100 (Broadcast) tell 0.0.0.0, length 46
+18:49:36.718661 02:05:86:71:f0:00 > 08:00:27:a6:81:14, ethertype IPv4 (0x0800), length 110: 2.2.2.2.9569 > 172.16.1.103.4789: VXLAN, flags [I] (0x08), vni 4
+08:00:27:86:06:12 > Broadcast, ethertype ARP (0x0806), length 60: Request who-has 10.1.1.100 (Broadcast) tell 0.0.0.0, length 46
 ^C
+4 packets captured
+4 packets received by filter
 
  ```
 
@@ -209,9 +204,45 @@ default-switch.evpn.0: 3 destinations, 3 routes (3 active, 0 holddown, 0 hidden)
   ```
 
 
-### Other Use Cases
+***Note: Due to current bug you have to statically add the VMs MAC addresses on the BMS side***
 
-Also tested two BMS connected via same VN for that you need another BMS connected to vqfx.
+Connect to VM created on VN01 via Console or LinkLocal IP (from compute) and get the MAC address OR get the MAC from the VM VMI port in Contrail GUI. After getting the MAC now add static MAC entry using following command on BMS1
+
+![Fabric Creation](images/VMI-VN01-MAC-Contrail.png)
+
+```bash
+# Let's add static MAC for the overlay VMI due to a bug 
+arp -s 10.1.1.4 02:e6:93:7c:90:f5
+arp -s 10.1.1.3 02:8f:c6:4e:d4:a2
+
+# Check MAC entries are added sucessfully
+arp -a
+? (10.1.1.4) at 02:e6:93:7c:90:f5 [ether] PERM on eth2
+paulh-lt1.jnpr.net (10.1.1.3) at 02:8f:c6:4e:d4:a2 [ether] PERM on eth2
+convergys-jspn-ce-fw1-ge-2-0-0-0.jnpr.net (10.1.1.1) at <incomplete> on eth2
+? (10.0.2.3) at 52:54:00:12:35:03 [ether] on eth0
+gateway (10.0.2.2) at 52:54:00:12:35:02 [ether] on eth0
+
+# Startt ping from BMS1 to VM with IP 10.1.1.3
+ping 10.1.1.3
+PING 10.1.1.3 (10.1.1.3) 56(84) bytes of data.
+64 bytes from 10.1.1.3: icmp_seq=1 ttl=64 time=162 ms
+^C
+--- 10.1.1.3 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 162.053/162.053/162.053/0.000 ms
+
+# Startt ping from BMS1 to VM with IP 10.1.1.4
+ping 10.1.1.4
+PING 10.1.1.4 (10.1.1.4) 56(84) bytes of data.
+64 bytes from 10.1.1.4: icmp_seq=1 ttl=64 time=389 ms
+64 bytes from 10.1.1.4: icmp_seq=2 ttl=64 time=102 ms
+^C
+--- 10.1.1.4 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1008ms
+rtt min/avg/max/mdev = 102.450/246.060/389.670/143.610 ms
+
+ ```
 
 
 ## Tips
