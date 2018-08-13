@@ -144,6 +144,11 @@ Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn St
 Check following logs during Fabric Configure process.
 
 ```bash
+cd cfm-vagrant/cfm-1x1-vqfx-7srv
+vagrant status
+
+vagrant ssh s-srv2
+
 tail -200f /var/log/contrail/contrail-fabric-ansible-playbooks.log
 
 tail -200f /var/log/contrail/contrail-fabric-ansible.log
