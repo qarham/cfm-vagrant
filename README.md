@@ -139,6 +139,8 @@ Now after brining setup up and basic validation it's time to start installing Co
 
 * ### [UC-06-BM_SecurityGroups](docs/06-BMS-Security.md)
 
+* ### [FoxyProxy for Chrome Setup](docs/FoxyProxy-Chrome-Setup.md)
+
 
 ### References
 
