@@ -77,3 +77,8 @@ iptables -F
 
  ```
 
+## Window Putty Destination Port Forwarding
+
+Create a new session with the HOST IP and configure destination base port forwarding as per below screenshot. Please save the session after making the chnage.
+
+![Contrail Command GUI](images/FoxyProxy-Putty-Setting.png)
