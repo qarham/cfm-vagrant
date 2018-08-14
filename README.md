@@ -91,7 +91,7 @@ vagrant box list
 After sucessful installtion of prerequisite SW and adding vagrant boxes now it's time bringing up the whole topology up and running. Please follow below steps:
 
 ```bash
-cd /root/cfm-vagrant/cfm-2qfx-8srv/
+cd /root/cfm-vagrant/cfm-1x1-vqfx-7srv/
 
 # check status of all nodes and make sure no errors
 vagrant status
