@@ -60,3 +60,22 @@ iptables -F
 
  ```
 
+## Window Putty Destination Port Forwarding
+
+Create a new session with the HOST IP and configure destination base port forwarding as per below screenshot. Please save the session after making the chnage.
+
+![Contrail Command GUI](images/FoxyProxy-Putty-Setting.png)
+
+1) Open the PuTTy client and enter the hostname and port
+
+2) Sort in a title under Saved Sessions and press Save.
+
+3) On the left side, go to Connection->SSH->Tunnels
+
+4) In Source Port enter 8080 (this can be designed to be whatever you need, simply recall that it)
+
+5) Pick the Dynamic radio button under Destination.
+
+6) Press Add, you ought to then see D8080 in the box.
+
+7) Go back to the session on the left side and after that press Save to save the progressions.
