@@ -72,10 +72,10 @@ Create a new session with the HOST IP and configure destination base port forwar
 
 3) On the left side, go to Connection->SSH->Tunnels
 
-4) In Source Port enter 8080 (this can be designed to be whatever you need, simply recall that it)
+4) In Source Port enter 1080 (this can be designed to be whatever you need, simply recall that it)
 
 5) Pick the Dynamic radio button under Destination.
 
-6) Press Add, you ought to then see D8080 in the box.
+6) Press Add, you ought to then see D1080 in the box.
 
 7) Go back to the session on the left side and after that press Save to save the progressions.
