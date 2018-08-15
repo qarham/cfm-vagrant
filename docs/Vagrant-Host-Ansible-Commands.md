@@ -4,6 +4,9 @@
 Here are couple of commands to test Clsuter status and run from host for status update:
 
 ```bash
+# Change working directory
+cd cfm-vagrant/cfm-1x1-vqfx-7srv/
+
 # check where ansible inventory file is
 cat ansible.cfg
 
