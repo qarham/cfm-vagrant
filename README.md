@@ -141,6 +141,7 @@ Now after brining setup up and basic validation it's time to start installing Co
 
 * ### [FoxyProxy for Chrome Setup](docs/FoxyProxy-Chrome-Setup.md)
 
+* ### [Host Ansible Commands for status](docs/Vagrant-Host-Ansible-Commands.md)
 
 ### References
 
