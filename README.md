@@ -29,7 +29,7 @@ Frist step is prepartion of host machine and the host can be running an Ubuntu o
     * Vagrant 2.1.1
     * Python 2.7.5
     * VirtualBox 5.2
-    * Ansible 2.5.3
+    * Ansible 2.6.2
 
 ```bash
 yum install -y git
@@ -145,6 +145,6 @@ Now after brining setup up and basic validation it's time to start installing Co
 ### References
 
 * <https://github.com/Juniper/contrail-ansible-deployer/wiki>
-* https://github.com/Juniper/contrail-command-deployer/wiki/Using-Ansible-to-launch-the-Contrail-Command-Containers
+* <https://github.com/Juniper/contrail-command-deployer/wiki/Using-Ansible-to-launch-the-Contrail-Command-Containers>
 * <https://github.com/Juniper/vqfx10k-vagrant>
 * <https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4>
