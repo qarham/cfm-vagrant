@@ -1,6 +1,8 @@
 # BMS to VM Intra VN 
 
-At this stage our Contrail Fabric Manager setup is up and ready for some overlay/underlay use-cases testing. Let's test BMS to VM intra Virtual Network connectivity, please follow below instructions.
+At this stage our Contrail Fabric Manager setup is up and ready for some overlay/underlay use-cases testing. Let's test BMS to VM intra Virtual Network Type-2 connectivity, please follow below instructions.
+
+![Fabric Creation](images/Intra-BMS-VM-Type2.png)
 
 ## 1. Created Workload
 

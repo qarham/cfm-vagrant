@@ -2,12 +2,15 @@
 
 At this point we are going to extend our BMS-VM fabric by creating a non-LCM BMS instance in VN-02 and enabling L3 connectivity between VMs and BMS servers running in VN-01 and VN-02 using EVPN Type-5 VRFs anchored on the Spine vQFX (CRB).
 
+![Fabric Creation](images/Inter-BMS-VM-Type5.png)
+
+
 ## 1. Add Non-LCM BMS node - l-srv4
 
 Navigate to INFRASTRUCTURE > Servers on the Contrail Command UI and click on Add button on the left top corner to add the second BMS server l-srv4. l-srv4
 eth2 interface MAC should be provided under Network Interfaces MAC address and specify "Leaf Device/TOR - Interface" as vqfx2-xe-0/0/4.
 
-![Add l-srv4](https://github.com/vshenoy83/cfm-vagrant/blob/master/cfm-1x1-vqfx-7srv/images/recipe5/1.png)
+![Add l-srv4](images/Inter-VN-BMS-VM-01.png)
 
 ```bash
 To get the MAC address of l-srv4 simply run the command "vagrant ssh -c 'cat /sys/class/net/eth2/address' l-srv4" from the vagrant directory. Other way
@@ -19,7 +22,7 @@ is to ssh to the l-srv4 VM
 For bms2 we assume that the BMS is a existing BMS migrated from legacy network to VN-02 and has a pre-existing ip address of 20.1.1.20. And we are going to retain 
 that IP address. On l-srv4 flush the 172 ip address on eth2 and statically configure 20.1.1.20 as the IP address.
 
-![Launch BMS2 in VN-02](https://github.com/vshenoy83/cfm-vagrant/blob/master/cfm-1x1-vqfx-7srv/images/recipe5/2.png)
+![Launch BMS2 in VN-02](images/Inter-VN-BMS-VM-02.png)
 
 ## Configs pushed to the leaf vqfx.
 
@@ -148,8 +151,8 @@ show ethernet-switching table | no-more
 
 Create a logical router LR1 and extend it to vqfx1 for EVPN Type-5 CRB functionality. Attach VN-01 and VN-02. Assign a L3 VNI of 1024.
 
-![Create LR](https://github.com/vshenoy83/cfm-vagrant/blob/master/cfm-1x1-vqfx-7srv/images/recipe5/3.png)
-![Create LR](https://github.com/vshenoy83/cfm-vagrant/blob/master/cfm-1x1-vqfx-7srv/images/recipe5/4.png)
+![Create LR](images/Inter-VN-BMS-VM-03.png)
+![Create LR](images/Inter-VN-BMS-VM-04.png)
 
 ```bash
 Note: Inorder to enable EVPN type-5 feature on Contrail VXLAN routing should be enabled at the project level.
