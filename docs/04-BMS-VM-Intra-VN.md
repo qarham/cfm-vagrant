@@ -8,12 +8,14 @@ At this stage our Contrail Fabric Manager setup is up and ready for some overlay
 
 Let's first create two VMs on each compute l-srv1 & l-srv2 from VN VN-01 CIDR "10.1.1.0/24" & VN-02 CIDR "20.1.1.0/24" using the script.
 
-Note: For the workshop the script is already in "/home/vagrant" folder.
+Note: Connect to ***s-srv2*** and for the workshop the script is already in "/home/vagrant" folder of s-srv2.
 
 ```bash
 wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-7srv/scripts/create-workload.sh
 chmod +x create-workload.sh
 
+vagrant ssh s-svr2
+ls
 ./create-workload.sh
  ```
 
