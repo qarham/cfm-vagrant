@@ -75,6 +75,8 @@ To disbale firewall rule use:
 
 iptables -F
 
+# Disable selinues on fly
+sudo setenforce 0
  ```
 
 ## Window Putty Destination Port Forwarding
