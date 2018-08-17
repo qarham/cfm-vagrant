@@ -7,8 +7,9 @@ apt-get install -y wget git bridge-utils python python-pip tmux apt-transport-ht
 # Add following line in "/etc/apt/sources.list"
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb http://download.virtualbox.org/virtualbox/debian `lsb_release -cs` contrib"
 sudo apt-get update
-sudo apt-get install virtualbox-5.2
+sudo apt-get -y install virtualbox-5.2
 
 ### Vagrant install
 wget https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
