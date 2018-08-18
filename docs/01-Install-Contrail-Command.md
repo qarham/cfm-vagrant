@@ -35,11 +35,18 @@ ansible-playbook playbooks/deploy.yml
 
 For Contrail Command GA please follow following steps:
 
+### Internal Repo
+
 ```bash
 # Use following command for internal registry
 docker pull ci-repo.englab.juniper.net:5010/contrail-command-deployer:5.0-214
 
-or
+docker run -t --net host -v /opt/command_servers.yml:/command_servers.yml -d --privileged --name contrail_command_deployer ci-repo.englab.juniper.net:5010/contrail-command-deployer:5.0-214
+ ```
+
+### External Repo "hub.juniper.net"
+
+```bash
 # For external use following steps
 docker login hub.juniper.net/contrail
 # Provide username/password
@@ -47,7 +54,7 @@ docker login hub.juniper.net/contrail
 docker pull hub.juniper.net/contrail/contrail-command:5.0.1-0.214
 
 # AFter that please use following command to bring contrail command up.  
-docker run -t --net host -v /opt/command_servers.yml:/command_servers.yml -d --privileged --name contrail_command_deployer ci-repo.englab.juniper.net:5010/contrail-command-deployer:5.0-214
+docker run -t --net host -v /opt/command_servers.yml:/command_servers.yml -d --privileged --name contrail_command_deployer hub.juniper.net/contrail/contrail-command:5.0.1-0.214
  ```
 
 ***Note*** Download [Contrail Comman Servers File](scripts/command_servers.yml)
