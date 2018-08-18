@@ -13,7 +13,7 @@ You can add servers one by one or in bulk. In case of bulk server add use follow
 
 ![Clsuter Provisioning](images/Add-Servers-Bulk.png)
 
-***Single Server Add with two interfaces eth1 (MGMT) & eth2 (Ctrl+Data)***
+***Single Server Add s-srv3 with two interfaces eth1 (MGMT) & eth2 (Ctrl+Data)***
 ![Clsuter Provisioning](images/Add-Server-01.png)
 
 ## 2. Add All Servers
