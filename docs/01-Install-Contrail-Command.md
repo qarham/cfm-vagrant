@@ -35,7 +35,16 @@ ansible-playbook playbooks/deploy.yml
 
 For Contrail Command GA please follow following steps:
 
-### Internal Repo
+* Install Docker
+
+```bash
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+yum install -y docker-ce
+systemctl start docker
+ ```
+
+* Internal Repo
 
 ```bash
 # Use following command for internal registry
@@ -44,7 +53,7 @@ docker pull ci-repo.englab.juniper.net:5010/contrail-command-deployer:5.0-214
 docker run -t --net host -v /opt/command_servers.yml:/command_servers.yml -d --privileged --name contrail_command_deployer ci-repo.englab.juniper.net:5010/contrail-command-deployer:5.0-214
  ```
 
-### External Repo "hub.juniper.net"
+* External Repo "hub.juniper.net"
 
 ```bash
 # For external use following steps

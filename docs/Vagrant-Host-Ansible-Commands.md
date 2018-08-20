@@ -30,3 +30,12 @@ ansible -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory s-s
 ansible -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory s-srv2,s-srv3,l-srv1,l-srv2 -a "ping www.google.com -c 2"
 
  ```
+
+## How to set libvirt virt-type to "qemu"?
+
+```bash
+yum install -y crudini
+crudini --set /etc/kolla/nova-compute/nova.conf libvirt cpu_mode none
+crudini --set /etc/kolla/nova-compute/nova.conf libvirt virt_type qemu
+docker restart nova_compute
+ ```
