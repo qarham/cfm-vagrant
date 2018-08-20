@@ -12,7 +12,7 @@ command_servers:
         #container_path: /root/contrail-command-051618.tar
         # or registry details and container_name
         registry_insecure: true
-        container_registry: hub.juniper.net/contrail
+        container_registry: hub.juniper.net
         container_name: contrail-command
         container_tag: 5.0.1-0.214
         #container_registry_username: username@juniper.net

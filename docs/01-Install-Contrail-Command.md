@@ -44,6 +44,20 @@ yum install -y docker-ce
 systemctl start docker
  ```
 
+Setup insecure registry for internal docker registry. This step is not required for "hub.juniper.net"
+
+```bash
+vi /etc/docker/daemon.json
+
+# Add following line to the file
+{"insecure-registries": ["ci-repo.englab.juniper.net:5010"]}
+
+# Svae changes & restart docker
+systemctl restart docker
+
+ ```
+
+
 * Internal Repo
 
 ```bash
@@ -63,7 +77,7 @@ docker login hub.juniper.net/contrail
 docker pull hub.juniper.net/contrail/contrail-command:5.0.1-0.214
 
 # AFter that please use following command to bring contrail command up.  
-docker run -t --net host -v /opt/command_servers.yml:/command_servers.yml -d --privileged --name contrail_command_deployer hub.juniper.net/contrail/contrail-command:5.0.1-0.214
+docker run -t --net host -v /opt/command_servers.yml:/command_servers.yml -d --privileged --name contrail_command_deployer hub.juniper.net/contrail/contrail-command-deployer:5.0.1-0.214
  ```
 
 ***Note*** Download [Contrail Comman Servers File](scripts/command_servers.yml)
