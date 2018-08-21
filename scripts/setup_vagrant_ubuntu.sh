@@ -1,7 +1,7 @@
 #!/bin/bash -v
 
 apt-get update
-apt-get install -y wget git bridge-utils python python-pip tmux apt-transport-https
+apt-get install -y wget git bridge-utils python python-pip tmux apt-transport-https software-properties-common
 
 # VirtualBox Installation
 # Add following line in "/etc/apt/sources.list"
@@ -17,7 +17,6 @@ dpkg -i vagrant_2.1.1_x86_64.deb
 
 ## Ansible Install
 sudo apt-get update
-sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get -y install ansible
@@ -26,6 +25,7 @@ sudo apt-get -y install ansible
 sudo ansible-galaxy install Juniper.junos
 
 pip install --upgrade pip
+sudo apt-get update
 pip install jxmlease
 pip install junos-eznc
 
