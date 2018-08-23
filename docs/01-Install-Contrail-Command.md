@@ -80,7 +80,7 @@ docker pull hub.juniper.net/contrail/contrail-command-deployer:5.0.1-0.214
 docker run -t --net host -v /opt/command_servers.yml:/command_servers.yml -d --privileged --name contrail_command_deployer hub.juniper.net/contrail/contrail-command-deployer:5.0.1-0.214
  ```
 
-***Note*** Download [Contrail Comman Servers File](scripts/command_servers.yml)
+***Note*** Download [Contrail Comman Servers File](https://raw.githubusercontent.com/qarham/cfm-vagrant/master/docs/scripts/command_servers.yml)
 
  Now to check the progress of installation use "docker log" command
 
