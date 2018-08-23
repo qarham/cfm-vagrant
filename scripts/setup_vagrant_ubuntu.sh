@@ -20,6 +20,7 @@ sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get -y install ansible
+ansible-galaxy install Juniper.junos
 
 ## Install JunOS Ansible Module and Python Modules
 sudo ansible-galaxy install Juniper.junos
