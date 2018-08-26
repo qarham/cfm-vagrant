@@ -64,7 +64,7 @@
   - name : Dump output
     debug:
       msg: "{{ output.stdout }}"
-      tags:
+    tags:
     - ntp
     - verify
 
