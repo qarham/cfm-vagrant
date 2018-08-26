@@ -36,7 +36,6 @@
   - name: Install other tools
     yum:
       name:
-      - epel-release
       - net-tools
       - tcpdump
       - crudini
