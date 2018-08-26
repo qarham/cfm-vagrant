@@ -94,12 +94,10 @@
     service:
       name: ntpd
       state: restarted
-      static: true
 
   - name: Sleep
     wait_for:
       timeout: 25
-      static: true
 
 - hosts: [l-srv3, l-srv4]
   tasks:
