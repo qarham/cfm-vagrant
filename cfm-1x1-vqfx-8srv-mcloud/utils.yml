@@ -5,6 +5,7 @@
     copy:
       content: |
              nameserver 8.8.8.8
+             nameserver 10.0.2.3
              search localhost
       dest: /etc/resolv.conf
     become: yes
@@ -40,14 +41,6 @@
     - Sleep
     - Restart NTP
     - Sleep
-
-  - name: Write protect ntp.conf
-    shell: |
-        chattr +i /etc/ntp.conf
-    become: yes
-    tags:
-    - ntp
-    - config
  
   - name: Install epel
     yum:
