@@ -13,14 +13,6 @@
     - dns
     - config
     
-  - name: Write protect resolve.conf
-    shell: |
-        chattr +i /etc/resolv.conf
-    become: yes
-    tags:
-    - dns
-    - config
-    
   - name: Populate ntp.conf
     copy:
       content: |
