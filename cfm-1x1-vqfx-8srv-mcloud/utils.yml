@@ -56,6 +56,8 @@
     shell: |
         /usr/bin/ntpstat
     become: yes
+    tags:
+    - ntp
     register: output
 
   - name : Dump output
@@ -66,6 +68,8 @@
     shell: |
         ping -c 3 www.google.com
     become: yes
+    tags:
+    - dns
     register: output
 
   - name : Dump output
@@ -91,8 +95,10 @@
     shell: |
          /usr/sbin/ip addr flush dev eth2
          /usr/sbin/ip addr show dev eth2
-    register: output
     become: yes
+    tags:
+    - intf
+    register: output
   - name : Dump output
     debug:
       msg: "{{ output.stdout }}"
