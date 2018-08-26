@@ -1,0 +1,89 @@
+---
+- hosts: [s-srv1, s-srv2, s-srv3, s-srv4, l-srv1, l-srv2, l-srv3, l-srv4]
+  tasks:
+  - name: Populate resolve.conf
+    copy:
+      content: |
+             nameserver 8.8.8.8
+             search localhost
+      dest: /etc/resolv.conf
+    become: yes
+  - name: Populate ntp.conf
+    copy:
+      content: |
+             tinker panic 0
+             disable monitor
+             restrict default kod nomodify notrap nopeer noquery
+             restrict -6 default kod nomodify notrap nopeer noquery
+             restrict 127.0.0.1
+             restrict -6 ::1
+             server 10.19.6.55 iburst
+      dest: /etc/ntp.conf
+    become: yes
+    notify:
+    - Restart NTP
+    - Sleep
+    - Restart NTP
+    - Sleep
+
+  - name: Install epel
+    yum:
+      name:
+      - epel-release
+      state: present
+    become: yes
+
+  - name: Install other tools
+    yum:
+      name:
+      - epel-release
+      - net-tools
+      - tcpdump
+      - crudini
+      state: present
+    become: yes
+
+  - name: Check NTP Status
+    shell: |
+        /usr/bin/ntpstat
+    become: yes
+    register: output
+
+  - name : Dump output
+    debug:
+      msg: "{{ output.stdout }}"
+
+  - name: Check DNS resolution
+    shell: |
+        ping -c 3 www.google.com
+    become: yes
+    register: output
+
+  - name : Dump output
+    debug:
+      msg: "{{ output.stdout }}"
+
+  handlers:
+  - name: Restart NTP
+    become: yes
+    service:
+      name: ntpd
+      state: restarted
+      static: true
+
+  - name: Sleep
+    wait_for:
+      timeout: 25
+      static: true
+
+- hosts: [l-srv3, l-srv4]
+  tasks:
+  - name: Flush IP address on eth2
+    shell: |
+         /usr/sbin/ip addr flush dev eth2
+         /usr/sbin/ip addr show dev eth2
+    register: output
+    become: yes
+  - name : Dump output
+    debug:
+      msg: "{{ output.stdout }}"
