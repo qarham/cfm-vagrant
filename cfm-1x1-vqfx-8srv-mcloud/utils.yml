@@ -11,6 +11,15 @@
     tags:
     - dns
     - config
+    
+  - name: Write protect resolve.conf
+    shell: |
+        chattr +i /etc/resolv.conf
+    become: yes
+    tags:
+    - dns
+    - config
+    
   - name: Populate ntp.conf
     copy:
       content: |
@@ -32,6 +41,14 @@
     - Restart NTP
     - Sleep
 
+  - name: Write protect ntp.conf
+    shell: |
+        chattr +i /etc/ntp.conf
+    become: yes
+    tags:
+    - ntp
+    - config
+ 
   - name: Install epel
     yum:
       name:
