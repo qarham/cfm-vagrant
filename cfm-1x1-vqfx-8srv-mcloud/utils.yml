@@ -58,11 +58,15 @@
     become: yes
     tags:
     - ntp
+    - verify
     register: output
 
   - name : Dump output
     debug:
       msg: "{{ output.stdout }}"
+      tags:
+    - ntp
+    - verify
 
   - name: Check DNS resolution
     shell: |
@@ -70,11 +74,15 @@
     become: yes
     tags:
     - dns
+    - verify
     register: output
 
   - name : Dump output
     debug:
       msg: "{{ output.stdout }}"
+    tags:
+    - dns
+    - verify
 
   handlers:
   - name: Restart NTP
@@ -102,3 +110,6 @@
   - name : Dump output
     debug:
       msg: "{{ output.stdout }}"
+    tags:
+    - intf
+    - verify
