@@ -8,6 +8,8 @@
              search localhost
       dest: /etc/resolv.conf
     become: yes
+    tags:
+    - dns    
   - name: Populate ntp.conf
     copy:
       content: |
@@ -20,6 +22,8 @@
              server 10.19.6.55 iburst
       dest: /etc/ntp.conf
     become: yes
+    tags:
+    - ntp
     notify:
     - Restart NTP
     - Sleep
@@ -32,6 +36,9 @@
       - epel-release
       state: present
     become: yes
+    tags:
+    - packages
+    - epel
 
   - name: Install other tools
     yum:
@@ -41,7 +48,10 @@
       - crudini
       state: present
     become: yes
-
+    tags:
+    - packages
+    - tools
+    
   - name: Check NTP Status
     shell: |
         /usr/bin/ntpstat
