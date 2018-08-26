@@ -8,6 +8,9 @@
              search localhost
       dest: /etc/resolv.conf
     become: yes
+    tags:
+    - dns
+    - config
   - name: Populate ntp.conf
     copy:
       content: |
@@ -20,6 +23,9 @@
              server 10.19.6.55 iburst
       dest: /etc/ntp.conf
     become: yes
+    tags:
+    - ntp
+    - config
     notify:
     - Restart NTP
     - Sleep
@@ -32,6 +38,10 @@
       - epel-release
       state: present
     become: yes
+    tags:
+    - packages
+    - epel
+    - config
 
   - name: Install other tools
     yum:
@@ -41,26 +51,42 @@
       - crudini
       state: present
     become: yes
+    tags:
+    - packages
+    - tools
+    - config
 
   - name: Check NTP Status
     shell: |
         /usr/bin/ntpstat
     become: yes
+    tags:
+    - ntp
+    - verify
     register: output
 
   - name : Dump output
     debug:
-      msg: "{{ output.stdout }}"
+      msg: "{{ output.stdout_lines[:2] }}"
+    tags:
+    - ntp
+    - verify
 
   - name: Check DNS resolution
     shell: |
         ping -c 3 www.google.com
     become: yes
+    tags:
+    - dns
+    - verify
     register: output
 
   - name : Dump output
     debug:
-      msg: "{{ output.stdout }}"
+      msg: "{{ output.stdout_lines[6] }}"
+    tags:
+    - dns
+    - verify
 
   handlers:
   - name: Restart NTP
@@ -81,8 +107,14 @@
     shell: |
          /usr/sbin/ip addr flush dev eth2
          /usr/sbin/ip addr show dev eth2
-    register: output
     become: yes
+    tags:
+    - intf
+    - verify
+    register: output
   - name : Dump output
     debug:
-      msg: "{{ output.stdout }}"
+      msg: "{{ output.stdout_lines }}"
+    tags:
+    - intf
+    - verify
