@@ -1,0 +1,67 @@
+global_configuration:
+  CONTAINER_REGISTRY: hub.juniper.net/contrail
+  REGISTRY_PRIVATE_INSECURE: false
+  CONTAINER_REGISTRY_USERNAME: <username>
+  CONTAINER_REGISTRY_PASSWORD: <password>
+provider_config:
+  bms:
+    ssh_user: root
+    ssh_pwd: c0ntrail123
+    ntpserver: 172.21.200.60
+    domainsuffix: local
+instances:
+  s-srv2:
+    ip: 192.168.2.11
+    provider: bms
+    roles:
+      config:
+      config_database:
+      control:
+      webui:
+      analytics:
+      analytics_database:
+      openstack_control:
+      openstack_network:
+      openstack_storage:
+      openstack_monitoring:
+  l-srv1:
+    ip: 192.168.2.14
+    provider: bms
+    roles:
+      vrouter:
+        VROUTER_GATEWAY: 172.16.2.1
+      openstack_compute:
+  l-srv2:
+    ip: 192.168.2.15
+    provider: bms
+    roles:
+      vrouter:
+        VROUTER_GATEWAY: 172.16.2.1
+      openstack_compute:
+  s-srv3:
+    ip: 192.168.2.12
+    provider: bms
+    roles:
+      vrouter:
+        TSN_EVPN_MODE: true
+        VROUTER_GATEWAY: 172.16.1.1
+contrail_configuration:
+  CONTRAIL_VERSION: 5.0.1-0.214-ocata
+  CLOUD_ORCHESTRATOR: openstack
+  RABBITMQ_NODE_PORT: 5673
+  VROUTER_GATEWAY: 172.16.2.1
+  ENCAP_PRIORITY: VXLAN,MPLSoUDP,MPLSoGRE
+  AUTH_MODE: keystone
+  KEYSTONE_AUTH_HOST: 192.168.2.11
+  KEYSTONE_AUTH_URL_VERSION: /v3
+  CONTROLLER_NODES: 192.168.2.11
+  CONTROL_NODES: 172.16.1.102
+  TSN_NODES: 172.16.1.103
+kolla_config:
+  kolla_globals:
+    openstack_release: ocata
+    enable_haproxy: no
+    enable_ironic: no
+    enable_swift: no
+  kolla_passwords:
+    keystone_admin_password: contrail123

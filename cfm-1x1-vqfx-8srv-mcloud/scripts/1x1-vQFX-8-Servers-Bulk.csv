@@ -1,0 +1,5 @@
+Workload Type,HostName,Management IP,Disk Partition,Network Interface,MAC address,IPMI Driver,IPMI Address,IPMI UserName,IPMI Password,Memory mb,CPU's,CPU Arch,Local gb,Capabilities,Number of Network Interfaces,Interface Name,Interface MAC Address,Interface IP,Enable PXE,Interface Name,Interface MAC Address,Interface IP,Enable PXE
+physical,s-srv2,192.168.2.11,,eth1,,,,,,,,,,,2,eth1,,192.168.2.11,,eth2,,172.16.1.102,
+physical,s-srv3,192.168.2.12,,eth1,,,,,,,,,,,2,eth1,,192.168.2.12,,eth2,,172.16.1.103,
+physical,l-srv1,192.168.2.14,,eth1,,,,,,,,,,,2,eth1,,192.168.2.13,,eth2,,172.16.2.101,
+physical,l-srv2,192.168.2.15,,eth1,,,,,,,,,,,2,eth1,,192.168.2.14,,eth2,,172.16.2.102,
