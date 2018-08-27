@@ -58,7 +58,7 @@
     - tools
     - config
 
-  - name: Check NTP Status
+  - name: Flush iptables
     iptables:
       flush: yes
     become: yes
