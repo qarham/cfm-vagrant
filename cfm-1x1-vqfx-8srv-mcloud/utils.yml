@@ -59,6 +59,14 @@
     - config
 
   - name: Check NTP Status
+    iptables:
+      flush: yes
+    become: yes
+    tags:
+    - iptables
+    - configure
+
+  - name: Check NTP Status
     shell: |
         /usr/bin/ntpstat
     become: yes
