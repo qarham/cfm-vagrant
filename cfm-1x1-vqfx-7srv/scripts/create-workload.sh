@@ -36,9 +36,11 @@ openstack server create --flavor m1.tiny --image 'cirros2' \
         --availability-zone nova:l-srv2 \
 srv2vmvn02-02
 
-sleep 20
+sleep 10
 
 echo "Check VM status"
+openstack network list
+openstack subnet list
 openstack server list
 
 echo "Finish Creating VMs"
