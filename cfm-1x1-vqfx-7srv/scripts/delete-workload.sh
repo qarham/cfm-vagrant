@@ -12,7 +12,6 @@ openstack server delete srv1vmvn01-01 srv1vmvn02-01 srv2vmvn01-02 srv2vmvn02-02
 
 # Delete two VNs VN-01 CIDR 10.1.1.0/24 & VN-02 20.1.1.0/24
 openstack network delete VN-01 VN-02
-openstack subnet delete VN01-VN-subnet VN02-VN-subnet
 
 echo "Check VM status"
 openstack server list
