@@ -56,3 +56,18 @@ commit
 rollback 1
 commit
  ```
+
+## How to locate TOR port and type using LLDP from Node side?
+
+```bash
+# Install LLDP package for OS (CentOS is used in below example)
+yum install lldpad
+
+# Start the LLDP service
+systemctl restart lldpad.service
+systemctl status lldpad.service
+
+# Check LLDP message communication and TOR switch info and port detail
+lldptool -S -i  ens2f1
+lldptool get-tlv -n -i ens2f1
+ ```
