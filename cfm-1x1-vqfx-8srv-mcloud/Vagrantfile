@@ -104,8 +104,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
 #                   srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
-                    srv.vm.provision "shell", path: "scripts/ntp.sh"
+#                    srv.vm.provision "shell", path: "scripts/ntp.sh"
+                    srv.vm.provision "shell", path: "scripts/dns-conf.sh"
                 config.vm.provider :virtualbox do |vb|
+                     vb.auto_nat_dns_proxy = false
+#                     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+#                     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"] 
                     if s_id == 1 or s_id == 3
                          vb.customize ["modifyvm", :id, "--memory", "8192", "--cpus", "2"]
                     else
@@ -142,8 +146,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
 #                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
                     srv.vm.provision "shell", path: "scripts/static-routes-l-server.sh"
-                    srv.vm.provision "shell", path: "scripts/ntp.sh"
-                    config.vm.provider :virtualbox do |vb|
+#                    srv.vm.provision "shell", path: "scripts/ntp.sh"
+                    srv.vm.provision "shell", path: "scripts/dns-conf.sh"
+                config.vm.provider :virtualbox do |vb|
+                     vb.auto_nat_dns_proxy = false
+#                     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+#                     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"] 
                     if l_id == 3 or l_id == 4
                          vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "2"]
                     else

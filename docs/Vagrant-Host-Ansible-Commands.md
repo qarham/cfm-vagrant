@@ -39,3 +39,20 @@ crudini --set /etc/kolla/nova-compute/nova.conf libvirt cpu_mode none
 crudini --set /etc/kolla/nova-compute/nova.conf libvirt virt_type qemu
 docker restart nova_compute
  ```
+
+## CEM TYPE-5 EVPN Workaround
+
+Use following workaround for EVPN TYPE-5 Inter VNs BMS to VM connectivity issue.
+
+```bash
+set groups __contrail_overlay_evpn__ switch-options mac-ip-table-size 65535
+commit
+
+deactivate groups __contrail_overlay_evpn__ vlans bd-4 l3-interface
+deactivate groups __contrail_overlay_evpn__ vlans bd-5 l3-interface
+deactivate groups __contrail_overlay_evpn__ interfaces irb
+commit
+
+rollback 1
+commit
+ ```
