@@ -71,3 +71,78 @@ systemctl status lldpad.service
 lldptool -S -i  ens2f1
 lldptool get-tlv -n -i ens2f1
  ```
+
+
+## How to verify Vagrant infras using util
+
+
+```bash
+ansible-playbook utils.yml
+
+ansible-playbook utils.yml -t ntp
+ansible-playbook utils.yml -t verify
+ansible-playbook utils.yml -t verify
+ ```
+
+```bash
+ansible-playbook utils.yml --list-tags
+
+playbook: utils.yml
+
+  play #1 (s-srv1,s-srv2,s-srv3,s-srv4,l-srv1,l-srv2,l-srv3,l-srv4): s-srv1,s-srv2,s-srv3,s-srv4,l-srv1,l-srv2,l-srv3,l-srv4	TAGS: []
+      TASK TAGS: [config, configure, dns, epel, iptables, ntp, packages, tools, verify]
+
+  play #2 (l-srv3,l-srv4): l-srv3,l-srv4	TAGS: []
+      TASK TAGS: [intf, verify]
+ ```
+
+
+## How to enable debug level for DM for troubelshooting?
+
+ ```bash
+ 1. docker exec -it config_devicemgr_1 bash
+2. vi entrypoint.sh
+3. set log_level=SYS_DEBUG
+4. exit
+5. docker restart config_devicemgr_1
+ ```
+
+## How to check which ports are open on VM or Node?
+
+```
+yum install -y nmap
+
+nmap -sS 192.168.2.10
+ ```
+
+## How to check BMS or VM Node detail using "inxi"?
+
+
+```
+# For Ubuntu OS
+sudo apt-get install -y inxi
+
+sudo inxi -Fx
+
+# For CentOS
+yum install -y inxi
+
+sudo inxi -Fx
+ ```
+
+# How to configure SR-IOV?
+
+
+```bash
+# update /etc/default/grub with this line
+export GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on iommu=pt"
+sudo -E update-grub
+sudo reboot now
+cat /proc/cmdline
+sudo echo '32' > /sys/class/net/ens3f0/device/sriov_numvfs
+sudo ip link show ens3f0 # to verify it worked
+
+# add line to /etc/rc.local so it does this on reboot
+sudo echo '32' > /sys/class/net/ens3f0/device/sriov_numvfs
+
+```
