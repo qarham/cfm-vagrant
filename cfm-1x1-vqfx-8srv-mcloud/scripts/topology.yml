@@ -1,0 +1,109 @@
+- provider: onprem
+  organization: juniper-contrail
+  project: juniper-contrail
+  instances:
+    - name: s-srv4
+      roles:
+        - gateway
+      provision: true
+      username: root
+      password: c0ntrail123
+      public_ip: 10.13.82.46
+      private_ip: 172.16.1.104
+      private_subnet:
+        - 172.16.1.0/24
+        - 172.16.2.0/24
+        - 2.2.2.0/24
+      interface: eth2
+      vip: 172.16.2.253
+      protocols:
+        - ssl_client
+    - name: s-srv3-controller
+      roles:
+        - controller: false
+        - k8s_master
+      provision: true
+      username: root
+      password: cOntrail123
+      public_ip: 10.13.82.44
+      private_ip: 172.16.1.102
+      private_subnet: 172.16.1.0/24
+      interface: eth2
+    - name: l-srv1
+      roles:
+        - compute_node
+      provision: false
+      username: root
+      password: cOntrail123
+      public_ip: 10.13.82.237
+      private_ip: 172.16.2.101
+      private_subnet: 172.16.2.0/24
+      interface: eth2
+    - name: l-srv2
+      roles:
+        - compute_node
+      provision: false
+      username: root
+      password: cOntrail123
+      public_ip: 10.13.82.238
+      private_ip: 172.16.2.102
+      private_subnet: 172.16.2.0/24
+      interface: eth2
+- provider: aws
+  organization: juniper-contrail
+  project: contrail-multicloud
+  regions:
+    - name: us-east-2
+      clouds:
+        - name: aws-contrail
+          cidr_block: 192.168.0.0/23
+          subnets:
+            - name: subnet_1_aws-contrail
+              cidr_block: 192.168.0.0/24
+              availability_zone: b
+          security_groups:
+            - name: all_in_aws-contrail
+              ingress:
+                from_port: 0
+                to_port: 0
+                protocol: "-1"
+                cidr_blocks:
+                  - "0.0.0.0/0"
+            - name: all_out_aws-contrail
+              egress:
+                from_port: 0
+                to_port: 0
+                protocol: "-1"
+                cidr_blocks:
+                  - "0.0.0.0/0"
+          instances:
+           - name: aws-contrail-gw
+             availability_zone: b
+             roles:
+                - gateway
+             provision: true
+             username: centos
+             machine_id: ami-e1496384
+             instance_type: c4.large
+             volume_size: 24
+             security_groups:
+                - all_out_aws-contrail
+                - all_in_aws-contrail
+             subnets: subnet_1_aws-contrail
+             interface: ens4
+             protocols_mode:
+               - ssl_server
+           - name: aws-contrail-k8s-node
+             availability_zone: b
+             provision: true
+             username: centos
+             roles:
+               - compute_node
+             machine_id: ami-e1496384
+             instance_type: c4.large
+             volume_size: 24
+             security_groups:
+                - all_out_aws-contrail
+                - all_in_aws-contrail
+             subnets: subnet_1_aws-contrail
+             interface: ens3
