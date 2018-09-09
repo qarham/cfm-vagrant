@@ -57,6 +57,17 @@ systemctl restart docker
 
  ```
 
+* Download reference "comman_servers.tml" and update the config as per your environment.
+
+```bash
+cd /opt
+wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/docs/scripts/command_servers.yml
+
+# Now please make changes in config file
+vi command_servers.yml
+ ```
+
+
 
 * Internal Repo
 
