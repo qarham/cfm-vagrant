@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: simple-fanout
+spec:
+  rules:
+  - host: www.juniper.net
+    http:
+      paths:
+      - path: /dev
+        backend:
+          serviceName: nginx
+          servicePort: 80
+      - path: /qa
+        backend:
+          serviceName: nginx
+          servicePort: 80

@@ -206,7 +206,7 @@ cd /usr/share/contrail/contrail-kolla-ansible
  ```
 
 
-## Contrail Command Provisioning Recorded Session (Click the icon)
+## Contrail Command Provisioning video recorded session (Click the icon)
 
 [![Contrail Command Provisioning](images/CC-Logo.png)](https://www.useloom.com/share/89c86936ccdf4ca981b5af701829383d "Contrail Command Provisioning")
 

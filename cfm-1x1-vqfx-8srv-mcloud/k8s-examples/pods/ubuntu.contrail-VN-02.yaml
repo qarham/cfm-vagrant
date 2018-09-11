@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntuvn02
+  labels:
+    app: ubuntvn02
+  annotations: {
+    "opencontrail.org/network" : '{"domain":"default-domain", "project": "admin", "name":"VN-02"}'
+  }
+spec:
+  containers:
+    - name: ubuntvn02
+      image: ubuntu-upstart

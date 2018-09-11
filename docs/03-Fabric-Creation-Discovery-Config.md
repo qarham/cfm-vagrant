@@ -237,6 +237,11 @@ http://192.168.2.11:8083/Snh_ShowBgpNeighborSummaryReq?search_string=
 
  ```
 
+## Contrail Command Brownfield Fabric Discovery video recorded Session (Click the icon)
+
+[![Contrail Command Provisioning](images/CC-Logo.png)](https://www.useloom.com/share/74e96d152a714d33afa7e5fdd48c1869 "Contrail Command Provisioning")
+
+
 ### References
 
 * <https://github.com/Juniper/contrail-ansible-deployer/wiki>

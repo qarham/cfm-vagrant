@@ -1,0 +1,10 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: dev
+  labels:
+    name: dev
+    project: dev
+  annotations:
+    "opencontrail.org/isolation": "true"
+    "opencontrail.org/ip_fabric_forwarding": "true"

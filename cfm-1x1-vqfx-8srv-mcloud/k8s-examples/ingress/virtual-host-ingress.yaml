@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: virutal-host
+spec:
+  rules:
+  - host: www.google.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80
+  - host: www.yahoo.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80

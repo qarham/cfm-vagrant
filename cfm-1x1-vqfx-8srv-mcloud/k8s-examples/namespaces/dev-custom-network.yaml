@@ -1,0 +1,10 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: dev
+  labels:
+    name: dev
+    project: dev
+  annotations:
+    "opencontrail.org/isolation": "true"
+    "opencontrail.org/network": {"domain": "default-domain", "project": "dev", "name": "k8s-dev-custom-pod-network"}
