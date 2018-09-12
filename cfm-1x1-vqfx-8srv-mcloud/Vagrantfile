@@ -113,7 +113,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     if s_id == 1 or s_id == 3
                          vb.customize ["modifyvm", :id, "--memory", "8192", "--cpus", "2"]
                     else
-                        vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                        vb.customize ["modifyvm", :id, "--memory", "65536", "--cpus", "8"]
         	    end                
                 end
             end
