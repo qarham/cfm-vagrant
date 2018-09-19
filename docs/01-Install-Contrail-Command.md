@@ -123,7 +123,7 @@ ssh root@10.87.65.30 -D 1080
 ![Contrail Command GUI](images/FoxyProxy-Contrail-Command-UI.png)
 
 
-## How to add pre-provisioned Contrail Clsuter in Contrail Command?
+## How to add pre-provisioned Contrail Cluster in Contrail Command?
 
 In case OpenStack/Contrail Cluster is up and running and would like adding existing cluster into Contrail Command, please copy "instances.yml" file under "/opt" and also download "command_servers.yml" file, update "command_servers.yml" as per your host config and run following command.
 

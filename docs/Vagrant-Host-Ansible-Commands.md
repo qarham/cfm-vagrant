@@ -1,7 +1,7 @@
 # How to check Contrail Cluster status from Host using ansible?
 
 
-Here are couple of commands to test Clsuter status and run from host for status update:
+Here are couple of commands to test cluster status and run from host for status update:
 
 ```bash
 # Change working directory
@@ -158,7 +158,7 @@ Normally once you create contrail-mcloud-deployer that will take care of life cy
 Start docker "service docker restart"
 
 # Create 1st folder "cluster01"
-mkdir clsuter-01
+mkdir cluster-01
 cd cluster-01
 
 # To git clone master branch
@@ -170,7 +170,7 @@ git clone -b R5.0 https://github.com/Juniper/contrail-multi-cloud.git
 ./deployer.sh -r sanjuabraham -t 5.0.1 -v $PWD:/root/multicloud -a ,access=key> -s <secret-key> -k 
 
 # Create 2nd folder "cluster-02"
-mkdir clsuter-01
+mkdir cluster-01
 cd cluster-01
 
 # To git clone master branch
