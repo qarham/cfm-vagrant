@@ -122,7 +122,18 @@ ssh root@10.87.65.30 -D 1080
 
 ![Contrail Command GUI](images/FoxyProxy-Contrail-Command-UI.png)
 
+
+## How to add pre-provisioned Contrail Clsuter in Contrail Command?
+
+In case OpenStack/Contrail Cluster is up and running and would like adding existing cluster into Contrail Command, please copy "instances.yml" file under "/opt" and also download "command_servers.yml" file, update "command_servers.yml" as per your host config and run following command.
+
+```bash
+docker run -t --net host -e orchestrator=openstack -e action=import_cluster -v /opt/command_servers.yml:/command_servers.yml -v /opt/instances.yml:/instances.yml -d --privileged --name contrail_command_deployer hub.juniper.net/contrail/contrail-command-deployer:5.0.1-0.214
+ ```
+
+
 ### References
 
 * <https://github.com/Juniper/contrail-ansible-deployer/wiki>
 * <https://github.com/Juniper/vqfx10k-vagrant>
+* <https://www.juniper.net/documentation/en_US/contrail5.0/topics/task/configuration/import-cluster-data-contrail-command.html>

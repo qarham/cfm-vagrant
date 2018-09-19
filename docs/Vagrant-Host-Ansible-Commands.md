@@ -146,3 +146,92 @@ sudo ip link show ens3f0 # to verify it worked
 sudo echo '32' > /sys/class/net/ens3f0/device/sriov_numvfs
 
 ```
+
+# CEM Multi-Cloud Gateway
+
+## How to run multiple "contrail-multicloud-deployer" on same PC for simultaneously provisioning of two clusters?
+
+Normally once you create contrail-mcloud-deployer that will take care of life cycle management of one cluster but there might be a scenarios where you would like to provision another from same PC and would like running another mcloud-deployer. Please follow below instructions to achieve that.
+
+```bash
+# Install Docker:
+Start docker "service docker restart"
+
+# Create 1st folder "cluster01"
+mkdir clsuter-01
+cd cluster-01
+
+# To git clone master branch
+git clone https://github.com/Juniper/contrail-multi-cloud.git
+# To git clone R5.0 branch
+git clone -b R5.0 https://github.com/Juniper/contrail-multi-cloud.git
+
+# To create deployer use following command with credentials.
+./deployer.sh -r sanjuabraham -t 5.0.1 -v $PWD:/root/multicloud -a ,access=key> -s <secret-key> -k 
+
+# Create 2nd folder "cluster-02"
+mkdir clsuter-01
+cd cluster-01
+
+# To git clone master branch
+git clone https://github.com/Juniper/contrail-multi-cloud.git
+# To git clone R5.0 branch
+git clone -b R5.0 https://github.com/Juniper/contrail-multi-cloud.git
+
+# Edit deployer.sh and make following changes:
+# Change value of "p" from 2222 to 2223 (New Port)
+# Chnage value of "n" from multicloud to "multicloud-new"
+grep -i 2223 deployer.sh                                                                          
+p=2223
+
+grep -i multicloud-new deployer.sh
+n="multicloud-new"
+
+# After that create another deplyer container using normal command with credentials.
+./deployer.sh -r sanjuabraham -t 5.0.1 -v $PWD:/root/multicloud -a ,access=key> -s <secret-key> -k 
+
+ ```
+
+## How to copy SSH key to already provisioned cluster before multi-cloud provisioning?
+
+```bash
+ssh-copy-id root@10.1.1.100
+
+# Via SSH Proxy to another node
+ssh -o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p -q root@10.1.1.100" root@172.16.1.102
+
+```
+
+## How bring MC-GW conatiners up and down?
+
+
+```bash
+# For openvpn SSL
+cd /etc/multicloud
+
+# Check status of Conatiner
+docker-compose -f openvpn-compose.yml ps
+# Bring down the conatiner
+docker-compose -f openvpn-compose.yml down
+# Bring up the conatiner
+docker-compose -f openvpn-compose.yml up -d
+
+# For Bird Container
+cd /etc/multicloud/bird
+
+# Check status of the Conatiner
+docker-compose -f bird-compose.yml ps
+# Bring Down the Conatiner
+docker-compose -f bird-compose.yml down
+# Bring up the conatiner
+docker-compose -f bird-compose.yml up -d
+ ```
+
+
+## How to check MC-GW routes and protocol detail?
+
+```bash
+ docker exec bird_bird_1 birdc show protocols all
+
+ docker exec bird_bird_1 birdc show route all
+ ```
