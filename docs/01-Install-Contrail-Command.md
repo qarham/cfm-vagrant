@@ -125,7 +125,7 @@ ssh root@10.87.65.30 -D 1080
 
 ## How to add pre-provisioned Contrail Cluster in Contrail Command?
 
-In case OpenStack/Contrail Cluster is up and running and would like adding existing cluster into Contrail Command, please copy "instances.yml" file under "/opt" and also download "command_servers.yml" file, update "command_servers.yml" as per your host config and run following command.
+In case OpenStack/Contrail Cluster is up and running and you would like adding existing cluster into Contrail Command, please copy "instances.yml" file under "/opt" and also download "command_servers.yml" file, update "command_servers.yml" as per your host config and run following command.
 
 ```bash
 docker run -t --net host -e orchestrator=openstack -e action=import_cluster -v /opt/command_servers.yml:/command_servers.yml -v /opt/instances.yml:/instances.yml -d --privileged --name contrail_command_deployer hub.juniper.net/contrail/contrail-command-deployer:5.0.1-0.214
