@@ -235,3 +235,13 @@ docker-compose -f bird-compose.yml up -d
 
  docker exec bird_bird_1 birdc show route all
  ```
+
+## How to add a node in existing k8s clsuter MC-GW?
+
+```bash
+#To get the token on k8s master  
+kubeadm token list
+
+# Now use following command on k8s-node to join the cluster
+kubeadm join --token <token> <k8s-node-ip>:6443 --discovery-token-unsafe-skip-ca-verification
+ ```
