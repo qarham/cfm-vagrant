@@ -131,7 +131,7 @@ Now after brining setup up and basic validation it's time to start installing Co
 
 * ### [UC-01-Contrail_Command_Installtion](docs/01-Install-Contrail-Command.md)
 
-* ### [UC-02-Contrail_Cloud_Cluster_Provisioning](docs/02-Contrail-Cloud-Cluster-Provisioning.md)
+* ### [UC-02-OpenStack-Contrail-Cluster-Provisioning](docs/02-OpenStack-Contrail-Cluster-Provisioning.md)
 
 * ### [UC-03-Fabric_Creation_Discovery_Onboarding](docs/03-Fabric-Creation-Discovery-Config.md)
 
