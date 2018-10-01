@@ -1,4 +1,4 @@
-# Provisioning of Contrail Cloud cluster via Contrail Command UI
+# Provisioning of OpenStack & Contrail cluster via Contrail Command UI
 
 ***URL for Contrail Command GUI Access***   https://192.168.2.10:9091
 
