@@ -15,8 +15,10 @@ yum install -y VirtualBox-5.2
 /sbin/rcvboxdrv setup
 
 echo " Vagrnat Installation"
-wget https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.rpm
-yum install -y vagrant_2.1.1_x86_64.rpm
+#wget https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.rpm
+#yum install -y vagrant_2.1.1_x86_64.rpm
+wget https://releases.hashicorp.com/vagrant/2.1.4/vagrant_2.1.4_x86_64.rpm
+yum install -y vagrant_2.1.4_x86_64.rpm
 vagrant plugin install vagrant-vbguest
 
 echo "Ansible Install"

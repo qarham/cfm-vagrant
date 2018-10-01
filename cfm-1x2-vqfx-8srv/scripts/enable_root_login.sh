@@ -12,3 +12,4 @@ sudo systemctl reload sshd
 echo "root:c0ntrail123" | sudo chpasswd
 
 sudo iptables -F
+sudo iptables --policy FORWARD ACCEPT

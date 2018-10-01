@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: ubuntuapp
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: ubuntuapp
+    spec:
+      containers:
+      - name: ubuntuapp
+        image: ubuntu-upstart

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-az-vn02
+  labels:
+    app: ubuntu-az-vn02
+  annotations: {
+    "opencontrail.org/network" : '{"domain":"default-domain", "project": "admin", "name":"VN-02"}'
+  }
+spec:
+  nodeSelector:
+    "kubernetes.io/hostname": "compute-contrail-az-1"
+  containers:
+    - name: ubuntuapp
+      image: ubuntu-upstart

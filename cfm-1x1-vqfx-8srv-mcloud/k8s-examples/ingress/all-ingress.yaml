@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: all
+spec:
+  backend:
+    serviceName: nginx
+    servicePort: 80
+  rules:
+  - host: www.juniper.net
+    http:
+      paths:
+      - path: /dev
+        backend:
+          serviceName: nginx
+          servicePort: 80
+  - host: www.google.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80

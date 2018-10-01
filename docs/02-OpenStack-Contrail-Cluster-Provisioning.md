@@ -1,4 +1,4 @@
-# Provisioning of Contrail Cloud Clsuter via Contrail Command UI
+# Provisioning of Contrail Cloud cluster via Contrail Command UI
 
 ***URL for Contrail Command GUI Access***   https://192.168.2.10:9091
 
@@ -11,49 +11,49 @@ You can add servers one by one or in bulk. In case of bulk server add use follow
 
 ### [Bulk Server Add csv file](images/1x1-vQFX-7-Servers-Bulk.csv)
 
-![Clsuter Provisioning](images/Add-Servers-Bulk.png)
+![cluster Provisioning](images/Add-Servers-Bulk.png)
 
-***Single Server Add s-srv3 with two interfaces eth1 (MGMT) & eth2 (Ctrl+Data)***
-![Clsuter Provisioning](images/Add-Server-01.png)
+***Single Server Add with two interfaces eth1 (MGMT) & eth2 (Ctrl+Data)***
+![cluster Provisioning](images/Add-Server-01.png)
 
 ## 2. Add All Servers
 
-![Clsuter Provisioning](images/Add-Servers-All.png)
+![cluster Provisioning](images/Add-Servers-All.png)
 
 ## 3. Create Cluster
 
-![Clsuter Provisioning](images/Create-Cluster.png)
+![cluster Provisioning](images/Create-Cluster.png)
 
 ## 4. Add Contrail Control Node
 
-![Clsuter Provisioning](images/Add-Contrail-Control-Node.png)
+![cluster Provisioning](images/Add-Contrail-Control-Node.png)
 
 ## 5. Add OpenStack Control Node (Orchestration)
 
-![Clsuter Provisioning](images/Add-OpenStack-Control-Node.png)
+![cluster Provisioning](images/Add-OpenStack-Control-Node.png)
 
 ## 6. Add Compute Node
 
-![Clsuter Provisioning](images/Add-Compute-Node.png)
+![cluster Provisioning](images/Add-Compute-Node.png)
 
 
 ## 7. Add Contrail Service Node (Old TSN)
 
-![Clsuter Provisioning](images/Add-Contrail-Service-Node.png)
+![cluster Provisioning](images/Add-Contrail-Service-Node.png)
 
 
 ## 8. Cluster Summary
 
-![Clsuter Provisioning](images/Cluster-Summary.png)
+![cluster Provisioning](images/Cluster-Summary.png)
 
 ## 9. Cluster Summary
 
-![Clsuter Provisioning](images/Cluster-Provisioning-Started.png)
+![cluster Provisioning](images/Cluster-Provisioning-Started.png)
 
 
 ## 10. Check instances.yml
 
-Contrail Command GUI creates instances.yml file used for clsuter provisioning at following location "/var/tmp/contrail_cluster/***Cluster-UUID***/". Please check and review.
+Contrail Command GUI creates instances.yml file used for cluster provisioning at following location "/var/tmp/contrail_cluster/***Cluster-UUID***/". Please check and review.
 
 ```bash
 # Login to Contrail Command Container
@@ -206,7 +206,7 @@ cd /usr/share/contrail/contrail-kolla-ansible
  ```
 
 
-## Contrail Command Provisioning Recorded Session (Click the icon)
+## Contrail Command Provisioning video recorded session (Click the icon)
 
 [![Contrail Command Provisioning](images/CC-Logo.png)](https://www.useloom.com/share/89c86936ccdf4ca981b5af701829383d "Contrail Command Provisioning")
 

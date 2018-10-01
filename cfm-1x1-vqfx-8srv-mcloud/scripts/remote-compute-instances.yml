@@ -1,0 +1,201 @@
+provider_config:
+  bms:
+    ssh_pwd: c0ntrail123
+    ssh_user: root
+    ntpserver: 10.84.5.100
+    domainsuffix: novalocal
+
+instances:
+
+  ### OPENSTACK-NODE FOR DEFAULT-POP ###
+  openstack_node:
+    provider: bms
+    ip: 10.0.0.3
+    roles:
+      openstack:
+
+  ### CONTROL-CONTROLLER FOR DEFAULT-POP ###
+  contrail_controller_1:
+    provider: bms
+    ip: 10.0.0.4
+    roles:
+      config_database:
+      config:
+      control:
+      analytics_database:
+      analytics:
+      webui:
+
+  contrail_controller_2:
+    provider: bms
+    ip: 10.0.0.5
+    roles:
+      config_database:
+      config:
+      control:
+      analytics_database:
+      analytics:
+      webui:
+
+  contrail_controller_3:
+    provider: bms
+    ip: 10.0.0.6
+    roles:
+      config_database:
+      config:
+      control:
+      analytics_database:
+      analytics:
+      webui:
+
+  ### CONTROL-ONLY FOR POP-1 ON  DEFAULT-POP ###
+  control_1_only_pop1:
+    provider: bms
+    ip: 10.0.0.9
+    roles:
+      control:
+        CONTROL_NODES: 10.10.0.8
+        location: pop1
+
+  control_2_only_pop1:
+    provider: bms
+    ip: 10.0.0.10
+    roles:
+      control:
+        CONTROL_NODES: 10.10.0.9
+        location: pop1
+
+  control_3_only_pop1:
+    provider: bms
+    ip: 10.0.0.11
+    roles:
+      control:
+        CONTROL_NODES: 10.10.0.10
+        location: pop1
+
+  ### CONTROL-ONLY FOR POP-2 ON  DEFAULT-POP ###
+  control_1_only_pop2:
+    provider: bms
+    ip: 10.0.0.12
+    roles:
+      control:
+        CONTROL_NODES: 10.10.0.11
+        location: pop2
+
+  control_2_only_pop2:
+    provider: bms
+    ip: 10.0.0.13
+    roles:
+      control:
+        CONTROL_NODES: 10.10.0.12
+        location: pop2
+
+  control_3_only_pop2:
+    provider: bms
+    ip: 10.0.0.14
+    roles:
+      control:
+        CONTROL_NODES: 10.10.0.13
+        location: pop2
+
+  ### COMPUTE NODES ON DEFAULT-POP ###
+  compute_1_default_pop:
+    provider: bms
+    ip: 10.0.0.7
+    roles:
+      openstack_compute:
+      vrouter:
+        CONTROL_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+        VROUTER_GATEWAY: 10.10.0.14
+        DNS_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+
+  compute_2_default_pop:
+    provider: bms
+    ip: 10.0.0.8
+    roles:
+      openstack_compute:
+      vrouter:
+        CONTROL_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+        VROUTER_GATEWAY: 10.10.0.14
+        DNS_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+
+  ### COMPUTE NODES ON POP-1 ###
+  compute_1_pop1:
+    provider: bms
+    ip: 10.0.0.15
+    roles:
+      openstack_compute:
+      vrouter:
+        CONTROL_NODES: 10.10.0.8,10.10.0.9,10.10.0.10
+        VROUTER_GATEWAY: 10.20.0.4
+        DNS_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+        location: pop1
+
+  compute_2_pop1:
+    provider: bms
+    ip: 10.0.0.16
+    roles:
+      openstack_compute:
+      vrouter:
+        CONTROL_NODES: 10.10.0.8,10.10.0.9,10.10.0.10
+        VROUTER_GATEWAY: 10.20.0.4
+        DNS_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+        location: pop1
+
+  ### COMPUTE NODES ON POP-2 ###
+  compute_1_pop2:
+    provider: bms
+    ip: 10.0.0.17
+    roles:
+      openstack_compute:
+      vrouter:
+        CONTROL_NODES: 10.10.0.11,10.10.0.12,10.10.0.13
+        VROUTER_GATEWAY: 10.30.0.4
+        DNS_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+        location: pop2
+
+  compute_2_pop2:
+    provider: bms
+    ip: 10.0.0.18
+    roles:
+      openstack_compute:
+      vrouter:
+        CONTROL_NODES: 10.10.0.11,10.10.0.12,10.10.0.13
+        VROUTER_GATEWAY: 10.30.0.4
+        DNS_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+        location: pop2
+
+global_configuration:
+  CONTAINER_REGISTRY: ci-repo.englab.juniper.net:5010
+  REGISTRY_PRIVATE_INSECURE: True
+
+contrail_configuration:
+  CONTRAIL_VERSION: 5.0-214
+  CLOUD_ORCHESTRATOR: openstack
+  OPENSTACK_VERSION: ocata
+  METADATA_PROXY_SECRET: c0ntrail123
+  AUTH_MODE: keystone
+  KEYSTONE_AUTH_ADMIN_PASSWORD: c0ntrail123
+  KEYSTONE_AUTH_URL_VERSION: "/v3"
+  AAA_MODE: rbac
+  UPGRADE_KERNEL: false
+  #CONTROLLER_NODES: 10.0.0.4,10.0.0.5,10.0.0.6
+  CONTROL_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+  #DNS_NODES: 10.10.0.3,10.10.0.4,10.10.0.5
+
+kolla_config:
+  kolla_globals:
+    enable_haproxy: no
+    enable_ironic: no
+    enable_swift: "no"
+  kolla_passwords:
+    metadata_secret: c0ntrail123
+    keystone_admin_password: c0ntrail123
+
+remote_locations:
+  pop1:
+    BGP_ASN: 12345
+    SUBCLUSTER: pop1
+  pop2:
+    BGP_ASN: 12346
+    SUBCLUSTER: pop2
