@@ -1,7 +1,7 @@
-Workload Type,HostName,Management IP,Disk Partition,Network Interface,MAC address,IPMI Driver,IPMI Address,IPMI UserName,IPMI Password,Memory mb,CPU's,CPU Arch,Local gb,Capabilities,Number of Network Interfaces,Interface Name,Interface MAC Address,Interface IP,Enable PXE,Interface Name,Interface MAC Address,Interface IP,Enable PXE
-baremetal,l-srv4,,,neutron,,,,,,1024,4,x86_64,210,boot_option:local,1,eth2,08:00:27:85:98:a4,,,,,,
-baremetal,l-srv5,,,neutron,,,,,,1024,4,x86_64,210,boot_option:local,1,eth2,08:00:27:59:21:df,,,,,,
-physical,s-srv2,192.168.2.11,,eth1,,,,,,,,,,,2,eth1,,192.168.2.11,,eth2,,172.16.1.102,
-physical,l-srv1,192.168.2.12,,eth1,,,,,,,,,,,2,eth1,,192.168.2.12,,eth2,,172.16.2.101,
-physical,l-srv2,192.168.2.13,,eth1,,,,,,,,,,,2,eth1,,192.168.2.13,,eth2,,172.16.2.102,
-physical,l-srv3,192.168.2.14,,eth1,,,,,,,,,,,2,eth1,,192.168.2.14,,eth2,,172.16.2.103,
+Workload Type,HostName,Management IP,Disk Partition,Network Interface,MAC address,IPMI Driver,IPMI Address,IPMI UserName,IPMI Password,Memory mb,CPU's,CPU Arch,Local gb,Capabilities,Number of Network Interfaces,Interface Name,Interface MAC Address,Interface IP,Switch Info,Port Id,Enable PXE,Interface Name,Interface MAC Address,Interface IP,Switch Info,Port Id,Enable PXE
+baremetal,l-srv3,,,neutron,,,,,,1024,4,x86_64,210,boot_option:local,1,eth2,08:00:27:08:3b:c9,,,,,,,,,,
+baremetal,l-srv4,,,neutron,,,,,,1024,4,x86_64,210,boot_option:local,1,eth2,08:00:27:e2:9a:b1,,,,,,,,,,
+physical,s-srv2,192.168.2.11,,eth1,,,,,,,,,,,2,eth1,,192.168.2.11,,,,eth2,,172.16.1.102,,,
+physical,s-srv3,192.168.2.12,,eth1,,,,,,,,,,,2,eth1,,192.168.2.12,,,,eth2,,172.16.2.101,,,
+physical,l-srv1,192.168.2.13,,eth1,,,,,,,,,,,2,eth1,,192.168.2.13,,,,eth2,,172.16.2.102,,,
+physical,l-srv2,192.168.2.14,,eth1,,,,,,,,,,,2,eth1,,192.168.2.14,,,,eth2,,172.16.2.103,,,
