@@ -12,8 +12,9 @@ sudo apt-get update
 sudo apt-get -y install virtualbox-5.2
 
 ### Vagrant install
-wget https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
-dpkg -i vagrant_2.1.1_x86_64.deb
+# wget https://releases.hashicorp.com/vagrant/2.1.1/vagrant_2.1.1_x86_64.deb
+wget https://releases.hashicorp.com/vagrant/2.2.0/vagrant_2.2.0_x86_64.deb
+dpkg -i vagrant_2.2.0_x86_64.deb
 
 ## Ansible Install
 sudo apt-get update
