@@ -1,0 +1,182 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+UUID = "mcfab1"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+    config.ssh.insert_key = false
+
+    (1..2).each do |id|
+        re_name  = ( "vqfx" + id.to_s ).to_sym
+        pfe_name = ( "vqfx" + id.to_s + "-pfe" ).to_sym
+
+        ##############################
+        ## Packet Forwarding Engine ##
+        ##############################
+        config.vm.define pfe_name do |vqfxpfe|
+            vqfxpfe.ssh.insert_key = false
+            vqfxpfe.vm.box = 'juniper/vqfx10k-pfe'
+            vqfxpfe.vm.boot_timeout = 600
+
+            # DO NOT REMOVE / NO VMtools installed ttt
+            vqfxpfe.vm.synced_folder '.',
+                '/vagrant', disabled: true
+
+            # Internal em1 port to RE
+            vqfxpfe.vm.network 'private_network',
+                auto_config: false,
+                nic_type: '82540EM',
+                virtualbox__intnet: "#{UUID}_vqfx#{id}_internal"
+
+            # In case you have limited resources, you can limit the CPU used per vqfx-pfe VM, usually 50% is good
+            #vqfxpfe.vm.provider "virtualbox" do |v|
+            #   v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+            #end
+        end
+
+        ##########################
+        ## Routing Engine  #######
+        ##########################
+        config.vm.define re_name do |vqfx|
+            vqfx.vm.hostname = "vqfx#{id}"
+            vqfx.vm.box = 'juniper/vqfx10k-re'
+            vqfx.vm.boot_timeout = 600
+
+            # DO NOT REMOVE / NO VMtools installed
+            vqfx.vm.synced_folder '.',
+                '/vagrant', disabled: true
+
+            # Internal em1 port to PFE
+            vqfx.vm.network 'private_network',
+                auto_config: false,
+                nic_type: '82540EM',
+                virtualbox__intnet: "#{UUID}_vqfx#{id}_internal"
+
+            # Unused em2 port we need to exclude
+            vqfx.vm.network 'private_network',
+                auto_config: false, nic_type: '82540EM',
+                virtualbox__intnet: "#{UUID}_vqfx#{id}_reserved-bridge"
+
+            # Interconnect link between vqfx (xe-0/0/0)
+            vqfx.vm.network 'private_network',
+                auto_config: false,
+                nic_type: '82540EM',
+                virtualbox__intnet: "#{UUID}_vqfx_interconnect"
+
+            # Dataplane ports (Yes, dataplane ports are mapped on the RE and not PFE for vQFX10k)
+            (1..3).each do |seg_id|
+               vqfx.vm.network 'private_network',
+                auto_config: false,
+                nic_type: '82540EM',
+                virtualbox__intnet: "#{UUID}_vqfx#{id}_seg#{seg_id}"
+
+            # xe-0/0/4 is used for Public IP (Host Bridge Interface)
+            vqfx.vm.network 'public_network',                                     # em7 mgmt port (xe-0/0/4)
+                bridge:"br0",                                                
+                auto_config: false,
+                 nic_type: '82540EM' 
+            end
+        end
+    end
+        ######################################################################################################################################
+        ## Servers Connected to vQFX1 Spine for OpenStack/Contrail Controller and Contrail-Command   "vqfx lo0: 2.2.2.1"               #######
+        ## Commented lines are for the lab setup with routable IP range assigned to the host and "br0" is used for direct nodes access #######
+        ######################################################################################################################################
+        $subnet_s_mgmt = "10.13.82"
+#        $subnet_s_mgmt = "192.168.2"
+        $subnet_s_ctrl_data= "172.16.1"
+            (1..3).each do |s_id|
+              srv_name = ( "s-srv" + s_id.to_s ).to_sym
+                config.vm.define srv_name do |srv|
+                    srv.vm.box = "qarham/CentOS7.5-350GB"
+                    srv.vm.hostname = "s-srv#{s_id}"
+#                    srv.vm.network 'private_network',
+#                       ip:"#{$subnet_s_mgmt}.#{s_id+9}",
+#                       netmask:"255.255.255.128"
+                    srv.vm.network "public_network",
+                      bridge: "br0",
+                      ip:"#{$subnet_s_mgmt}.#{s_id+31}",
+                      netmask:"255.255.255.0"
+                    srv.vm.network 'private_network',
+                      ip: "#{$subnet_s_ctrl_data}.#{s_id+100}",
+                      nic_type: '82540EM',
+                      virtualbox__intnet: "#{UUID}_vqfx1_seg#{s_id}"
+                    srv.ssh.insert_key = true
+                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
+                   srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+                    srv.vm.provision "shell", path: "scripts/static-routes-s-server.sh"
+#                    srv.vm.provision "shell", path: "scripts/ntp.sh"
+                    srv.vm.provision "shell", path: "scripts/resolve-conf.sh"
+                config.vm.provider :virtualbox do |vb|
+                     vb.auto_nat_dns_proxy = false
+                     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+                     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+                    if s_id == 1 or s_id == 3
+                         vb.customize ["modifyvm", :id, "--memory", "8192", "--cpus", "2"]
+                    else
+                        vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+        	    end                
+                end
+            end
+        end
+
+        ######################################################################################################################################
+        ## Servers Connected to vQFX2 Leaf for Compute, CSN and BMS nodes "vqfx lo0: 2.2.2.2"                                          #######
+        ## Commented lines are for the lab setup with routable IP range assigned to the host and "br0" is used for direct nodes access #######
+        ######################################################################################################################################
+        $subnet_l_mgmt = "10.13.82"
+#        $subnet_s_mgmt = "192.168.2"
+        $subnet_l_ctrl_data= "172.16.2"
+            (1..3).each do |l_id|
+              srv_name = ( "l-srv" + l_id.to_s ).to_sym
+                config.vm.define srv_name do |srv|
+                    srv.vm.box = "qarham/CentOS7.5-350GB"
+                    srv.vm.hostname = "l-srv#{l_id}"
+#                    srv.vm.network 'private_network',
+#                       ip:"#{$subnet_s_mgmt}.#{l_id+13}",
+#                       netmask:"255.255.255.128"
+                    srv.vm.network "public_network",
+                      bridge: "br0",
+                      ip:"#{$subnet_l_mgmt}.#{l_id+35}",
+                      netmask:"255.255.255.0"
+                    srv.vm.network 'private_network',
+                      ip: "#{$subnet_l_ctrl_data}.#{l_id+100}",
+                      nic_type: '82540EM',
+                      virtualbox__intnet: "#{UUID}_vqfx2_seg#{l_id}"
+                    srv.ssh.insert_key = true
+                    srv.vm.provision "shell", path: "scripts/enable_root_login.sh"
+                    srv.vm.provision "shell", path: "scripts/set-centos-gw.sh"
+                    srv.vm.provision "shell", path: "scripts/static-routes-l-server.sh"
+#                    srv.vm.provision "shell", path: "scripts/ntp.sh"
+                    srv.vm.provision "shell", path: "scripts/resolve-conf.sh"
+                    config.vm.provider :virtualbox do |vb|
+                     vb.auto_nat_dns_proxy = false
+                     vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+                     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+                    if l_id == 3 or l_id == 4
+                         vb.customize ["modifyvm", :id, "--memory", "4096", "--cpus", "2"]
+                    else
+                        vb.customize ["modifyvm", :id, "--memory", "32768", "--cpus", "4"]
+                    end
+                end
+            end
+        end
+
+    ##############################
+    ## Box provisioning        ###
+    ## exclude Windows host    ###
+    ##############################
+    if !Vagrant::Util::Platform.windows?
+        config.vm.provision "ansible" do |ansible|
+            ansible.groups = {
+                "vqfx10k" => ["vqfx1", "vqfx2" ],
+                "vqfx10k-pfe"  => ["vqfx1-pfe", "vqfx2-pfe"],
+                "all:children" => ["vqfx10k", "vqfx10k-pfe"]
+            }
+            ansible.playbook = "pb.conf.all.commit.yaml"
+        end
+    end
+end

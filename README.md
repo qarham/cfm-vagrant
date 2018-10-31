@@ -129,7 +129,7 @@ Now after brining setup up and basic validation it's time to start installing Co
 
 ## Use-cases Tested on this setup
 
-* ### [UC-01-Contrail_Command_Installtion](docs/01-Install-Contrail-Command.md)
+* ### [UC-01-Contrail_Command_Installation](docs/01-Install-Contrail-Command.md)
 
 * ### [UC-02-OpenStack-Contrail-Cluster-Provisioning](docs/02-OpenStack-Contrail-Cluster-Provisioning.md)
 
