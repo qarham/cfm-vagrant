@@ -6,31 +6,6 @@ The 1st step after bringing up the topology is the Installation of Contrail Comm
 
 Note: Contrail Command can be isnatlled on your PC/Laptop or any other machine as well but in our setup we have alocated s-srv1 for Contrail Command
 
-```bash
-# Let's 1st install git and ansible SW
-cd /root/cfm-vagrant/cfm-1x1-vqfx-7srv
-
-# Check status of all servers and vQFXs using following command
-vagrant status
-
-vagrant ssh s-srv1
-sudo su
-cd /opt
-yum -y install git ansible-2.4.2.0
-
-# Git Clone Contrail Command Deployer repo
-git clone https://github.com/Juniper/contrail-command-deployer.git
-
-cd contrail-command-deployer
-vi config/command_servers.yml
-
-# Add IP address of s-srv1 "192.168.2.10" and TAG for the Contrail Command Container, for our testing we used 5.0-154
-
-
-# Start Contrail Command Deployment 
-ansible-playbook playbooks/deploy.yml
- ```
-
 ## Contrail Command 5.0.1 GA Procedure
 
 For Contrail Command GA please follow following steps:
