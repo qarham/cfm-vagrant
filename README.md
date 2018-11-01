@@ -28,10 +28,10 @@ Frist step is prepartion of host machine and the host can be running an Ubuntu o
 
 1. Install Ubuntu 16.04.3 or CentOS 7.5 OS on the BMS and install following software using scripts provided under folder "scripts".
 
-    * Vagrant 2.1.1
+    * Vagrant 2.2.0
     * Python 2.7.5
     * VirtualBox 5.2
-    * Ansible 2.6.2
+    * Ansible 2.6.3
 
 ```bash
 yum install -y git
@@ -47,13 +47,13 @@ or
 
 ## Now verify the SW installation using following command
 vboxmanage --version
-  5.2.12r122591
+  5.2.16r123759
 
 vagrant --version
-  Vagrant 2.1.1
+  Vagrant 2.2.0
 
 ansible --version
-   ansible 2.5.3
+   ansible 2.6.3
 
 pip list | grep junos
 &
