@@ -111,7 +111,7 @@ vagrant ssh s-srv1
 
 ping 2.2.2.1  (Connection to vQFX spine)
 ping 2.2.2.2 (Connection to vQFX leaf)
-ping 172.16.2.101-103 (Connection to nodes connected to vQFX leaf)
+ping 172.16.2.101-102 (Connection to nodes connected to vQFX leaf)
 
 # Login to vQFX1 spine for setup validation
 vagrant ssh vqfx1
@@ -122,7 +122,7 @@ show route receive-protocol bgp 10.0.0.2
 
 ping 2.2.2.2
 ping 172.16.1.101 & 102
-ping 172.16.2.101 - 103
+ping 172.16.2.101 - 102
  ```
 
 Now after brining setup up and basic validation it's time to start installing Contrail CFM SW and basic use-cases testing. All validated use-cases are documented under folder "docs" and use following link for step to setp installations and validation.
