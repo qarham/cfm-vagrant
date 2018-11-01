@@ -91,7 +91,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.hostname = "s-srv#{s_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{s_id+9}",
-                       netmask:"255.255.255.128"
+                       netmask:"255.255.255.0"
 #                    srv.vm.network "public_network",
 #                      bridge: "br0",
 #                      ip:"#{$subnet_s_mgmt}.#{s_id+86}",
@@ -133,7 +133,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     srv.vm.hostname = "l-srv#{l_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{l_id+13}",
-                       netmask:"255.255.255.128"
+                       netmask:"255.255.255.0"
 #                    srv.vm.network "public_network",
 #                      bridge: "br0",
 #                      ip:"#{$subnet_l_mgmt}.#{l_id+88}",

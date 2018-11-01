@@ -177,7 +177,7 @@ end
                     srv.vm.hostname = "s-srv#{s_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{s_id+9}",
-                       netmask:"255.255.255.128"
+                       netmask:"255.255.255.0"
                     srv.vm.network 'private_network',
                       ip: "#{$subnet_s_ctrl_data}.#{s_id+100}",
                       nic_type: '82540EM',
@@ -210,7 +210,7 @@ end
                     srv.vm.hostname = "l1-srv#{l_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{l_id+11}",
-                       netmask:"255.255.255.128"
+                       netmask:"255.255.255.0"
                     srv.vm.network 'private_network',
                       ip: "#{$subnet_l1_ctrl_data}.#{l_id+100}",
                       nic_type: '82540EM',
@@ -242,7 +242,7 @@ end
                     srv.vm.hostname = "l12-srv#{l_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{l_id+11}",
-                       netmask:"255.255.255.128"
+                       netmask:"255.255.255.0"
                     srv.vm.network 'private_network',
                       ip: "#{$subnet_l1_ctrl_data}.#{l_id+100}",
                       nic_type: '82540EM',
@@ -280,7 +280,7 @@ end
                     srv.vm.hostname = "l2-srv#{l_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{l_id+14}",
-                       netmask:"255.255.255.128"
+                       netmask:"255.255.255.0"
                     srv.vm.network 'private_network',
                       ip: "#{$subnet_l2_ctrl_data}.#{l_id+100}",
                       nic_type: '82540EM',
@@ -312,7 +312,7 @@ end
                     srv.vm.hostname = "l12-srv#{l_id}"
                     srv.vm.network 'private_network',
                        ip:"#{$subnet_s_mgmt}.#{l_id+13}",
-                       netmask:"255.255.255.128"
+                       netmask:"255.255.255.0"
                     srv.vm.network 'private_network',
                       ip: "#{$subnet_l1_ctrl_data}.#{l_id+100}",
                       nic_type: '82540EM',
