@@ -24,7 +24,7 @@ Frist step is prepartion of host machine and the host can be running an Ubuntu o
 
 ## Host Server Vagrant Setup (prerequisite)
 
-***Note: Please use dedicated BMS for the setup and BMS tested for this setup has following resources  "24 CPUs, RAM:256GB, 750GB-1TB HDD"***
+***Note: Please use dedicated BMS for the setup and BMS used for this setup has following resources  "24 CPUs, RAM:256GB, 750GB-1TB HDD"***
 
 1. Install Ubuntu 16.04.3 or CentOS 7.5 OS on the BMS and install following software using scripts provided under folder "scripts".
 

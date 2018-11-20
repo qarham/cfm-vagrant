@@ -114,7 +114,7 @@ policy-options {
     policy-statement export-bgp {
         term 1 {
             from {
-                protocol [ direct local ];
+                protocol [ direct local static ];
                 interface [ lo0.0 irb.0 ];
             }
             then accept;
