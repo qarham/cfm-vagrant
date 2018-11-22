@@ -37,4 +37,12 @@ host> vagrant up
 
  ```
 
+## Use-cases Tested on this setup
+
+* ### [UC-01-Contrail_Command_Installation](../docs/multi-cloud/01-Install-Contrail-Command.md)
+
+* ### [UC-02-OpenStack-Contrail-Cluster-Provisioning](../docs/multi-cloud/02-OpenStack-Contrail-Cluster-Provisioning.md)
+
+* ### [UC-03-Contrail-MultiCloud-Provisioning](../docs/multi-cloud/03-Contrail-MultiCloud-Provisioning.md)
+
 
