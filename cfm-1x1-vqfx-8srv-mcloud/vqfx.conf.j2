@@ -90,6 +90,10 @@ snmp {
     }
 }
 routing-options {
+static {
+    route {{ aws_prefix_1 }} next-hop {{ mcloud_gw }};
+    route {{ az_prefix_1 }} next-hop {{ mcloud_gw }};
+}
     router-id {{ router_id }};
     autonomous-system {{ overlay_asn }};
 }
@@ -114,7 +118,7 @@ policy-options {
     policy-statement export-bgp {
         term 1 {
             from {
-                protocol [ direct local static ];
+                protocol [ direct local ];
                 interface [ lo0.0 irb.0 ];
             }
             then accept;

@@ -1,6 +1,6 @@
 # How to upgrade Contrail Networking from one build to another build?
 
-Starting Contrail 5.0.2 you can upgrading Contrail Networking in the existing Clsuter from one build to another build using Contrail Command UI.
+Starting Contrail 5.0.2 you can upgrading Contrail Networking in the existing cluster from one build to another build using Contrail Command UI.
 
 Note: Please use 5.0.2 updated "command_servers.yml" moving forward for Contrail Command Installation and upgrade.
 

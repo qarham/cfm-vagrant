@@ -8,7 +8,7 @@
       provision: true
       username: root
       password: c0ntrail123
-      public_ip: 10.13.82.46
+      public_ip: 192.168.2.13
       private_ip: 172.16.1.104
       private_subnet:
         - 172.16.1.0/24
@@ -18,16 +18,15 @@
       vip: 172.16.2.253
       protocols:
         - ssl_client
-    - name: s-srv3-controller
+    - name: s-srv2-controller
       roles:
         - controller: false
         - k8s_master
       provision: true
       username: root
       password: cOntrail123
-      public_ip: 10.13.82.44
+      public_ip: 192.168.2.11
       private_ip: 172.16.1.102
-      private_subnet: 172.16.1.0/24
       interface: eth2
     - name: l-srv1
       roles:
@@ -35,9 +34,8 @@
       provision: false
       username: root
       password: cOntrail123
-      public_ip: 10.13.82.237
+      public_ip: 192.168.2.14
       private_ip: 172.16.2.101
-      private_subnet: 172.16.2.0/24
       interface: eth2
     - name: l-srv2
       roles:
@@ -45,7 +43,7 @@
       provision: false
       username: root
       password: cOntrail123
-      public_ip: 10.13.82.238
+      public_ip: 192.168.2.15
       private_ip: 172.16.2.102
       private_subnet: 172.16.2.0/24
       interface: eth2
@@ -53,13 +51,13 @@
   organization: juniper-contrail
   project: contrail-multicloud
   regions:
-    - name: us-east-2
-      clouds:
+    - name: us-west-1
+      vpc:
         - name: aws-contrail
-          cidr_block: 192.168.0.0/23
+          cidr_block: 192.168.100.0/24
           subnets:
             - name: subnet_1_aws-contrail
-              cidr_block: 192.168.0.0/24
+              cidr_block: 192.168.100.0/24
               availability_zone: b
           security_groups:
             - name: all_in_aws-contrail
@@ -83,27 +81,119 @@
                 - gateway
              provision: true
              username: centos
-             machine_id: ami-e1496384
+             machine_id: ami-65e0e305
              instance_type: c4.large
              volume_size: 24
              security_groups:
                 - all_out_aws-contrail
                 - all_in_aws-contrail
              subnets: subnet_1_aws-contrail
-             interface: ens4
+             interface: eth1
              protocols_mode:
                - ssl_server
+               - ipsec_server
            - name: aws-contrail-k8s-node
              availability_zone: b
              provision: true
              username: centos
              roles:
                - compute_node
-             machine_id: ami-e1496384
+             machine_id: ami-65e0e305
              instance_type: c4.large
              volume_size: 24
              security_groups:
                 - all_out_aws-contrail
                 - all_in_aws-contrail
              subnets: subnet_1_aws-contrail
-             interface: ens3
+             interface: eth0
+- provider: azure
+  organization: Juniper
+  project: contrail-multicloud
+  regions:
+   - name: WestUS
+     resource_group: multicloud
+     vnet:
+     - name: contrail-az-1
+       cidr_block: 192.168.200.0/24
+       subnets:
+         - name: subnet_contrail_az_1
+           cidr_block: 192.168.200.0/24
+           security_group: allow_all_protocols
+       security_groups:
+         - name: allow_all_protocols-contrail-az-1
+           rules:
+             - name: all_in-contrail-az-1
+               direction: inbound
+             - name: all_out-contrail-az-1
+               direction: outbound
+       instances:
+          - name: az-contrail-gw-1
+            roles:
+              - gateway
+            provision: true
+            username: centos
+            os: centos7
+            instance_type: Standard_F16s_v2
+            subnets: subnet_contrail_az_1
+            interface: eth1
+            protocols_mode:
+              - ssl_server
+              - ipsec_client
+          - name: compute-contrail-az-1
+            username: centos
+            roles:
+              - compute_node
+            provision: true
+            os: centos7
+            instance_type: Standard_F16s_v2
+            subnets: subnet_contrail_az_1
+            interface: eth0
+#- provider: google
+#  organization: juniper-contrail
+#  project: contrail-codilime-multicloud
+#  regions:
+#    - name: us-west1
+#      clouds:
+#        - name: gcn-contrail-pvt
+#          subnets:
+#            - name: subnet-1
+#              cidr_block: 192.168.2.0/24
+#          firewalls_external:
+#            - name: all-wan
+#              allow:
+#                protocol: all
+#          firewalls_internal:
+#            - name: all-lan
+#              allow:
+#                protocol: all
+#          instances:
+#            - name: gcloud-contrail-gw
+#              roles:
+#                - gateway
+#              provision: true
+#              username: ubuntu
+#              os: ubuntu16
+#              instance_type: n1-standard-1
+#              subnets: subnet-1
+#              interface: ens5
+#
+#            - name: gcloud-contrail-k8s-node-1
+#              provision: true
+#              username: ubuntu
+#              roles:
+#                - compute_node
+#              os: ubuntu16
+#              instance_type: n1-standard-1
+#              subnets: subnet-1
+#              interface: ens4
+#
+#            - name: gcloud-contrail-k8s-node-2
+#              provision: true
+#              username: ubuntu
+#              roles:
+#                - compute_node
+#              os: ubuntu16
+#              instance_type: n1-standard-1
+#              subnets: subnet-1
+#              interface: ens4
+#              interface: ens4

@@ -1,19 +1,40 @@
-***
-This Vagrantfile will spawn 2 instances of VQFX (Full) each with 1 Routing Engine and 1 PFE VM along with 7 nodes connected to 1x1 vQFX Fabric.
+# Contrail Multi-Cloud Vagrant Setup (MC-GW)
 
-# Topology 
+Using this repo you can create a whole Multi-Cloud POC setup using Vagrant. The topology is similar to CFM with an addition of new server "s-srv4" on vQFX1 Spine which will be configrued as on-prem MC-GW (Multi-Cloud Gateway) to provide connectivity to Public Cloud AWS and Azure. In this setup on-prem vagrant setup will connect to both AWS and Azure.
 
-## High Level Topology Diagram
+Note: Please check high level E2E topology diagram for 
 
-![Web Console](images/cfm-1x1vQFX-Top-Overview.png)
+## High Level Vagrant Topology Diagram
 
-## Low Level Detail Topology Diagram
+![Multi Cloud](images/mcloud-1x1vQFX-Top-Overview.png)
 
-Work in progresss
+## Full Vagrant Topology Diagram
 
-# Provisioning / Configuration
+![Multi Cloud](images/mcloud-1x1vQFX-Full-Top.png)
 
-Ansible is used to preconfigured both VQFX with an IP address on their interfaces
+Please note host server will be used for "contrail-multicloud-deployer" for multi-cloud provisioning and prerequisite is docker installing on the host.
 
+## Multi-Cloud E2E Topology Overview
+
+![Multi Cloud](images/mcloud-E2E-Top-overview.png)
+
+
+## Bringing Vagrant Setup up
+
+Assumption here is all software (Vagrant/VirtualBox & Ansible) needed for Vagrant setup is already installed and in case you have to setup vagrant host please follow main [README](../README.md) file.
+
+Please use following steps to bring Multi-Cloud Vagrant Topology up.
+
+```bash
+host> cd /root
+host> git clone https://github.com/qarham/cfm-vagrant.git
+host> cd cfm-vagrant/cfm-1x1-vqfx-8srv-mcloud
+host> vagrant status
+
+# Now let's print the whole on-prem topology up
+
+host> vagrant up
+
+ ```
 
 

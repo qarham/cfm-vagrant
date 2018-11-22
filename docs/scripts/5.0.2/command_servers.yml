@@ -13,10 +13,12 @@ command_servers:
         # or registry details and container_name
         registry_insecure: true
         container_registry: ci-repo.englab.juniper.net:5010
+        #container_registry: 10.84.5.81:5010
         # container_registry: hub.juniper.net/contrail
+        # container_registry: hub.juniper.net/contrail-nightly
         container_name: contrail-command
-        container_tag: 5.0-310
-        # container_tag: 5.0.2-0.3XX
+        container_tag: 5.0-360
+        # container_tag: 5.0.2-0.360
         #container_registry_username: username@juniper.net
         #container_registry_password: passwordforregistry
         config_dir: /etc/contrail

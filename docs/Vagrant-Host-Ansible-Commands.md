@@ -236,7 +236,7 @@ docker-compose -f bird-compose.yml up -d
  docker exec bird_bird_1 birdc show route all
  ```
 
-## How to add a node in existing k8s clsuter MC-GW?
+## How to add a node in existing k8s cluster MC-GW?
 
 ```bash
 #To get the token on k8s master  

@@ -29,3 +29,6 @@ local_as: 64601
 peer_as: 64501
 neighbor: 10.0.0.2
 local_address: 2.2.2.1
+aws_prefix_1: 192.168.100.0/24
+az_prefix_1: 192.168.200.0/24
+mcloud_gw: 172.16.1.104

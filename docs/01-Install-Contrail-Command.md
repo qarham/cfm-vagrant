@@ -1,14 +1,12 @@
 # ![alt text](images/CC-Logo.png) Installation of Contrail Command
 
+The 1st step after bringing up the topology is the Installation of Contrail Command, and for that Contrail Command will be installed on s-srv1. Please follow the following steps for installation and accessing the GUI after the installation.
 
-The 1st step after bringing up the topology is the Installation of Contrail Command and for that Contrail Command will be installed on s-srv1. Please follow following steps for installtion and accessing the GUI after the installation.
-
-
-Note: Contrail Command can be isnatlled on your PC/Laptop or any other machine as well but in our setup we have alocated s-srv1 for Contrail Command
+Note: Contrail Command can be installed on your PC/Laptop or any other machine as well, but in our setup, we have allocated s-srv1 for Contrail Command alocated s-srv1 for Contrail Command
 
 ## Contrail Command 5.0.1 GA Procedure
 
-For Contrail Command GA please follow following steps:
+For Contrail Command GA please follow below steps:
 
 * Install Docker
 
@@ -32,7 +30,7 @@ systemctl restart docker
 
  ```
 
-* Download reference "comman_servers.tml" and update the config as per your environment.
+* Download reference "comman_servers.yml" and update the config as per your environment.
 
 ```bash
 cd /opt

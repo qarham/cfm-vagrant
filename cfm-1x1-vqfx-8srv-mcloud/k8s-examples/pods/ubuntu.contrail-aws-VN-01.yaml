@@ -9,7 +9,7 @@ metadata:
   }
 spec:
   nodeSelector:
-    "kubernetes.io/hostname": "ip-192-168-0-97.us-west-1.compute.internal"
+    "kubernetes.io/hostname": "aws-contrail-k8s-node"
   containers:
     - name: ubuntuapp
       image: ubuntu-upstart
