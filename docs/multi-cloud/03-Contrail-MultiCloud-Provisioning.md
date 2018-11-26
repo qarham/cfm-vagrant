@@ -16,7 +16,7 @@ Please check the following diagram for on-prem and public cloud connectivity.
 Following Contrail SW and registry used for this setup.
 
 * Contrail Multi-cloud SW: 5.0.2-0.360 (5.0.2GA)
-* Contrail Registry: hub.juniper.net/contrail-nightly
+* Contrail Registry: hub.juniper.net/contrail
 
 Note: You need username/password for Juniper Registry for GA SW
 
@@ -43,11 +43,11 @@ Host server will be used for Contrail Multi-Cloud deployer. Please follow these 
 
 ```bash
 # Login to Juniper Docker Images Registry
-docker login hub.juniper.net/contrail-nightly
+docker login hub.juniper.net/contrail
 # Use your Username/Password
 
 # Pull contrail-multicloud-deployer image
-docker pull hub.juniper.net/contrail-nightly/contrail-multicloud-deployer:5.0.2-0.360
+docker pull hub.juniper.net/contrail/contrail-multicloud-deployer:5.0.2-0.360
 
 # Git clone Repo Branch 5.0
 cd /root
@@ -55,7 +55,7 @@ git clone -b R5.0 https://github.com/Juniper/contrail-multi-cloud.git
 cd contrail-multi-cloud
 
 # Create multicloud deployer conatiner using your AWS AK & SAK
-./deployer.sh -r hub.juniper.net/contrail-nightly -t 5.0.2-0.360 -v $PWD:/root/multicloud -a <Access-Key> -s <Secret-Access-Key> -k
+./deployer.sh -r hub.juniper.net/contrail -t 5.0.2-0.360 -v $PWD:/root/multicloud -a <Access-Key> -s <Secret-Access-Key> -k
 
 # Check SSH key and if missing add the key
 ssh-add -l
@@ -73,7 +73,7 @@ wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-8s
 Update "CONTRAINER_REGISTRY, CONTRAINER_REGISTRY_USERNAME, CONTRAINER_REGISTRY_PASSWORD & CONTRAIL_VERSION" values in "common.yml" files under "ansible/contrail, ansible/gateway & ansible/tor".
 
 ```bash
-CONTRAINER_REGISTRY: "hub.juniper.net/contrail-nightly"
+CONTRAINER_REGISTRY: "hub.juniper.net/contrail"
 CONTAINER_REGISTRY_USERNAME: <Username>
 CONTAINER_REGISTRY_PASSWORD: <Password>
 CONTRAIL_VERSION: 5.0.2-0.360
