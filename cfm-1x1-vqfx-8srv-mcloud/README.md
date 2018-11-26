@@ -31,7 +31,7 @@ host> git clone https://github.com/qarham/cfm-vagrant.git
 host> cd cfm-vagrant/cfm-1x1-vqfx-8srv-mcloud
 host> vagrant status
 
-# Now let's print the whole on-prem topology up
+# Now let's bring the whole on-prem topology up using following command
 
 host> vagrant up
 
