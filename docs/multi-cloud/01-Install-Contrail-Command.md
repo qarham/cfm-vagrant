@@ -14,6 +14,7 @@ For Contrail Command 5.0.2 GA please follow below steps:
 ```bash
 host> vagrant ssh s-srv1
 
+sudo su
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum install -y docker-ce
@@ -41,6 +42,9 @@ docker pull hub.juniper.net/contrail/contrail-command-deployer:5.0.2-0.360
 
 # AFter that please use following command to bring contrail command up.  
 docker run -t --net host -v /opt/command_servers.yml:/command_servers.yml -d --privileged --name contrail_command_deployer hub.juniper.net/contrail/contrail-command-deployer:5.0.2-0.360
+
+# Start checking logs
+docker logs -f contrail_command_deployer
  ```
 
 ***Note*** Reference [Contrail Comman Servers File](https://raw.githubusercontent.com/qarham/cfm-vagrant/master/docs/scripts/5.0.2/command_servers.yml)
@@ -62,13 +66,13 @@ Please use following links for FoxyProxy Setup and configuration.
 
 ```bash
 # 1st step is open SSH session to the host node 
-ssh root@10.87.65.30 -D 1080
+ssh root@<host-ip> -D 1080
  ```
 
 * https://192.168.2.10:9091
     * Username/Password: admin/contrail123
 
-![Contrail Command GUI](images/FoxyProxy-Contrail-Command-UI.png)
+![Contrail Command GUI](../images/FoxyProxy-Contrail-Command-UI.png)
 
 ### References
 
