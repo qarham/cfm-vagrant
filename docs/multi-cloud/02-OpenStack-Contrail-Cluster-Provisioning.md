@@ -169,8 +169,10 @@ srv1vmvn02-02
 
 
 ```bash
-s-srv2> 
+# Connect to s-srv2 (OpenStack/Contrail Controller)
+vagrant ssh s-srv2
 
+# Download VMs workload testing scripts
 sudo su
 wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-7srv/scripts/basic-sanity-test.sh
 wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-7srv/scripts/create-workload.sh
@@ -184,24 +186,18 @@ chmod +x basic-sanity-test.sh create-workload.sh install-os-clinet-images.sh del
 
  ```
 
-## 13. Basic Sanity Check (Not required for workshop)
-
-To make sure Cluster provisioning is successful and no issue let's create some work load using a simple basic sanity script "basic-sanity-test.sh".
-
-This script will perform following actions:
-* install OpenStack client 
-* Download and Add cirros images
-* Create VM flavors
-* Create TWO VNs VN01: 10.1.1.0/24 & VN02: 20.1.1.0/24
-* Instantiate two VMs in each VN (VN01 & VN02)
+After successful executing of sanity script following VMs will be created and you can connect to those VMs via OpenStack UI or Contrail Command UI to test basic connectivity.
 
 ```bash
-wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-7srv/scripts/basic-sanity-test.sh
-
-chmod +x basic-sanity-test.sh
-
-./basic-sanity-test.sh
-
++ openstack server list
++--------------------------------------+---------------+--------+----------------+---------+---------+
+| ID                                   | Name          | Status | Networks       | Image   | Flavor  |
++--------------------------------------+---------------+--------+----------------+---------+---------+
+| 79a61bc5-dc33-4308-ad1e-410c06677a4d | srv2vmvn02-02 | ACTIVE | VN-02=20.1.1.4 | cirros2 | m1.tiny |
+| b0372ef1-4cdd-4314-b0f6-1b468ba4970d | srv2vmvn01-02 | ACTIVE | VN-01=10.1.1.4 | cirros2 | m1.tiny |
+| c1026c90-6509-4fb0-8678-d16148dd5829 | srv1vmvn02-01 | ACTIVE | VN-02=20.1.1.3 | cirros2 | m1.tiny |
+| 6623a168-2b91-4ab1-8ef3-2ba030697492 | srv1vmvn01-01 | ACTIVE | VN-01=10.1.1.3 | cirros2 | m1.tiny |
++--------------------------------------+---------------+--------+----------------+---------+---------+
  ```
 
 ## Other Tips

@@ -45,4 +45,5 @@ host> vagrant up
 
 * ### [UC-03-Contrail-MultiCloud-Provisioning](../docs/multi-cloud/03-Contrail-MultiCloud-Provisioning.md)
 
+* ### [UC-04-K8s PODs & OpenStack VMs Workload Testing](../docs/multi-cloud/04-PODs-VMs-Workload-Testing.md)
 

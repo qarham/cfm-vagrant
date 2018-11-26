@@ -66,6 +66,10 @@ ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no -A root@127.
 cd multicloud
 ssh-add -l
 
+# Note: In case you get connection abort error please use these commands.
+eval `ssh-agent -s`
+ssh-add keys/contrail-multicloud-key-XXXX
+
 # Copy topology.yml file from repo 
 wget https://raw.githubusercontent.com/qarham/cfm-vagrant/master/cfm-1x1-vqfx-8srv-mcloud/scripts/topology.yml
  ```
@@ -109,7 +113,8 @@ ssh -o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p -q root@192.168.2.
 Please delete following routes from s-srv4 where MC-GW will be provisioned.
 
 ```bash
-s-srv4>
+vagrant ssh s-srv4
+
 ip route delete 192.168.100.0/24 via 172.16.1.1
 ip route delete 192.168.200.0/24 via 172.16.1.1
 
@@ -131,6 +136,21 @@ az login
 # Start Cluster provisioning using following script
 ./deploy.sh
 
+ ```
+
+Once clsuter provisioning is successful make sure there are no playbook failure and check "PLAY RECAP".
+
+```bash
+
+PLAY RECAP ********************************************************************************************************************
+172.16.1.102               : ok=3    changed=1    unreachable=0    failed=0   
+172.16.1.104               : ok=5    changed=2    unreachable=0    failed=0   
+172.16.2.101               : ok=1    changed=1    unreachable=0    failed=0   
+172.16.2.102               : ok=1    changed=1    unreachable=0    failed=0   
+192.168.100.20             : ok=1    changed=1    unreachable=0    failed=0   
+192.168.100.48             : ok=9    changed=5    unreachable=0    failed=0   
+192.168.200.4              : ok=9    changed=5    unreachable=0    failed=0   
+192.168.200.5              : ok=1    changed=1    unreachable=0    failed=0   
  ```
 
 After sucessful provisioning login to "s-srv2" and check status of K8s clsuter.
