@@ -245,3 +245,167 @@ kubeadm token list
 # Now use following command on k8s-node to join the cluster
 kubeadm join --token <token> <k8s-node-ip>:6443 --discovery-token-unsafe-skip-ca-verification
  ```
+
+## How to check DHCP lease in ZTP/AIO server for Fabric?
+
+You can also monitor the leases file. its mapped on your host under "/etc/contrail/dhcp/leases/dhcpd.leases"
+
+```bash
+cat /etc/contrail/dhcp/leases/dhcpd.leases
+
+ ```
+
+To clear lease "delete fabric" and make sure there is no error and zeroize all devcies to start fabric creation again.
+
+ After fabric delete make sure there is no dhcp leases.
+ 
+```bash
+ cat /etc/contrail/dhcp/leases/dhcpd.leases
+
+ ```
+
+## How to configure VLAN on Ubuntu for Fabric VLAN testing?
+
+```bash
+sudo apt-get install vlan
+sudo modprobe 8021q
+
+sudo vconfig add p514p2 100
+sudo ip addr add 1.1.1.3/24 dev p514p2.100
+sudo ip link set up p514p2.100
+
+sudo vconfig add p514p2 200
+sudo ip addr add 2.2.2.3/24 dev p514p2.200
+sudo ip link set up p514p2.200
+
+sudo vconfig add p514p2 101
+sudo ip addr add 1.1.1.100/24 dev p514p2.101
+sudo ip link set up p514p2.101
+
+sudo vconfig add p514p2 201
+sudo ip addr add 2.2.2.100/24 dev p514p2.201
+sudo ip link set up p514p2.201
+
+# To delete the Link
+ip link delete p514p2.200
+ip link delete p514p2.201
+ ```
+
+
+## How to use Channelized interfaces for Greenfield Fabric onboarding? 
+
+If you are using QFX5200 and has channelized interfaces then you have to configure channelzied configuration after "zeroize" the box and in below example port 21-23 is configrued for channelized 10G speed and connected to BMSs. Start Fabric creation and onboarding setup wizard after make configuration changes manually.
+
+
+```bash
+[edit chassis fpc fpc-slot pic pic-slot]
+set port-range port–range-low port-range-high channel-speed speed
+
+# Set Channelized IFL and speed make sure only Channelized one which needed. If you channelized other "et-X" interface connected to the spine, then you will see an issue.
+set chassis fpc 0 pic 0 port-range 21 23 channel-speed 10g
+ ```
+
+## How to configure BMS running Ubuntu/CentOS for EVPN/VXLAN Multi-homing LACP Active/Active use-case?
+
+Here is sample bond config for BMS running Ubuntu 16.04.4 connected to two separate ToRs for Multi-homing LACP Active/Active Config.
+
+**OS**: Ubuntu 16.04.4
+
+**Interfaces**: p514p1 & p514p2
+
+**Note**: Only LACP Active/Active is supported today.
+
+```bash
+# Sample BMS bond0 interface config
+cat /etc/networks/interfaces
+
+auto p514p1
+iface p514p1 inet manual
+    bond-master bond0
+
+auto p514p2
+iface p514p2 inet manual
+    bond-master bond0
+
+# bond0 is the bonded NIC and can be used like any other normal NIC.
+# bond0 is configured using static network information.
+auto bond0
+iface bond0 inet static
+    address 1.1.1.4
+    netmask 255.255.255.0
+
+    # bond0 uses standard IEEE 802.3ad LACP bonding protocol
+    bond-mode 4
+    bond-miimon 100
+    bond-lacp-rate 1
+    bond-slaves p514p1 p514p2
+
+# After making changes either reboot the BMS, restrat networking or bring interfaces up using following command
+ifup p514p1 & ifup p514p2 & ifup bond0
+
+# Now create a VLAN interface and assign IP 
+vconfig add bond0 100
+ifconfig bond0.100 1.1.1.3
+
+vconfig add bond0 200
+ifconfig bond0.200 2.2.2.3
+ ```
+
+**OS**: CentOS 7.5
+
+**Interfaces**: eth1 & eth2
+
+```bash
+cat bond-bms.sh
+sudo cat > /etc/sysconfig/network-scripts/ifcfg-eth1 <<EOF
+DEVICE=eth1
+TYPE=Ethernet
+BOOTPROTO=none
+ONBOOT=yes
+NM_CONTROLLED=no
+IPV6INIT=no
+MASTER=bond0
+SLAVE=yes
+EOF
+
+sudo cat > /etc/sysconfig/network-scripts/ifcfg-eth2 <<EOF
+DEVICE=eth2
+TYPE=Ethernet
+BOOTPROTO=none
+ONBOOT=yes
+NM_CONTROLLED=no
+IPV6INIT=no
+MASTER=bond0
+SLAVE=yes
+EOF
+
+sudo cat > /etc/sysconfig/network-scripts/ifcfg-bond0 <<EOF
+DEVICE=bond0
+Type=Bond
+NAME=bond0
+BONDING_MASTER=yes
+BOOTPROTO=none
+ONBOOT=yes
+BONDING_OPTS="mode=4 miimon=100 lacp_rate=1 xmit_hash_policy=1"
+NM_CONTROLLED=no
+IPADDR=172.16.10.4
+PREFIX=24
+NETWORK=172.16.10.0
+EOF
+
+sudo systemctl restart network
+ ```
+
+Above script is used for bond0 interface creation and after that use follow commands for VLAN configuration
+
+```bash
+ip link add link bond0 name bond0.300 type vlan id 300
+ip link set dev bond0.300 up
+ip address add 1.1.1.5/24 dev bond0.300
+
+
+# To delete VLAN interface
+ip link delete bond0.300
+ ```
+
+

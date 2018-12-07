@@ -6,6 +6,9 @@ yum --enablerepo=extras install -y epel-release
 yum install -y gcc dkms make qt libgomp patch git wget tcpdump bridge-utils python python-pip tmux
 yum install -y kernel-headers kernel-devel kernel-devel-3.10.0-862.el7.x86_64 binutils glibc-headers glibc-devel font-forge
 
+# wget wget https://rpmfind.net/linux/centos/7.5.1804/os/x86_64/Packages/kernel-devel-3.10.0-862.el7.x86_64.rpm
+# yum install -y kernel-devel-3.10.0-862.el7.x86_64.rpm
+
 echo "VirtualBox Install"
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | rpm --import -
 wget https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo
