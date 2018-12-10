@@ -122,7 +122,8 @@ show route receive-protocol bgp 10.0.0.2
 
 ping 2.2.2.2
 ping 172.16.1.101 & 102
-ping 172.16.2.101 - 102
+ping 172.16.2.101 source 2.2.2.1
+ping 172.16.2.102 source 2.2.2.1
  ```
 
 Now after brining setup up and basic validation it's time to start installing Contrail CFM SW and basic use-cases testing. All validated use-cases are documented under folder "docs" and use following link for step to setp installations and validation.
